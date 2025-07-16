@@ -97,6 +97,7 @@ Secure Auth: JWT-based + Google Sign-In + Firebase Auth
 Responsive Design: ScreenUtil, CurvedNavigationBar, and adaptive layouts
 
 👩‍💻 Team Members
+
 Abdallah Abdrabou
 
 Abdallah Elsaied
