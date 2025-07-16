@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\JourneyMate.Presentation.props" />
+</Project>

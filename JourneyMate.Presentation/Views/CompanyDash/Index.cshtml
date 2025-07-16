@@ -1,0 +1,227 @@
+﻿@model CompanyVm
+@{
+    ViewBag.Title = Model.CompanyName ?? "Company Profile";
+    Layout = "~/Views/Shared/_CompanyLayout.cshtml";
+}
+
+<div class="company-profile">
+    <!-- Cover Image Section -->
+    <div class="cover-section position-relative">
+        <div class="cover-image" style="background-image: url('@(Model.CoverImageUrl ?? "/images/default-cover.jpg")');">
+            <div class="cover-overlay"></div>
+        </div>
+
+        <!-- Profile Image Overlay -->
+        <div class="profile-image-container">
+            <img src="@(Model.ProfileImageUrl ?? "/images/default-profile.jpg")"
+                 alt="@Model.CompanyName Profile"
+                 class="profile-image">
+        </div>
+    </div>
+
+    <!-- Company Information Section -->
+    <div class="container-fluid px-4 py-4">
+        <div class="row">
+            <div class="col-12">
+                <!-- Company Header -->
+                <div class="company-header mb-4">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap">
+                        <div>
+                            <h1 class="company-name mb-2">@Model.CompanyName</h1>
+                            @if (!string.IsNullOrEmpty(Model.Slogan))
+                            {
+                                <p class="company-slogan text-muted mb-3">@Model.Slogan</p>
+                            }
+                        </div>
+
+                        <!-- Rating -->
+                        <div class="rating-section text-end">
+                            <div class="rating-stars mb-1">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <i class="fas fa-star @(i <= Model.Rating ? "text-warning" : "text-muted")"></i>
+                                }
+                            </div>
+                            <small class="text-muted">@Model.Rating.ToString("F1") / 5.0</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="row">
+                    <!-- Left Column - Company Details -->
+                    <div class="col-lg-8 mb-4">
+                        <!-- Description -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>About Us</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">@Model.Description</p>
+                            </div>
+                        </div>
+
+                        <!-- Working Hours -->
+                        @if (Model.WorkingHours != null && Model.WorkingHours.Any())
+                        {
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-clock me-2"></i>Working Hours</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="working-hours">
+                                        @foreach (var workingHour in Model.WorkingHours.OrderBy(w => GetDayOrder(w.DayOfWeek)))
+                                        {
+                                            <div class="working-hour-item d-flex justify-content-between align-items-center py-2 border-bottom">
+                                                <div class="day-name">
+                                                    <strong>@workingHour.DayOfWeek</strong>
+                                                </div>
+                                                <div class="hours text-end">
+                                                    @if (workingHour.IsClosed)
+                                                    {
+                                                        <span class="text-muted">Closed</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="text-success">
+                                                            @workingHour.OpenTime?.ToString(@"hh\:mm") - @workingHour.CloseTime?.ToString(@"hh\:mm")
+                                                        </span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Social Media Links -->
+                        @if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
+                        {
+                            <div class="card mb-4">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-share-alt me-2"></i>Follow Us</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="social-links d-flex flex-wrap gap-3">
+                                        @foreach (var social in Model.SocialMediaLinks)
+                                        {
+                                            <a href="@social.Url" target="_blank" class="btn btn-outline-primary btn-sm">
+                                                <i class="fab fa-@social.Platform.ToLower() me-1"></i>
+                                                @social.Platform
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Payment Methods -->
+                        @if (Model.PaymentMethods != null && Model.PaymentMethods.Any())
+                        {
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0"><i class="fas fa-credit-card me-2"></i>Payment Methods</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="payment-methods">
+                                        @foreach (var payment in Model.PaymentMethods)
+                                        {
+                                            <div class="payment-method mb-2 p-2 border rounded">
+                                                <strong>@payment.MethodName</strong>
+                                                @if (!string.IsNullOrEmpty(payment.Details))
+                                                {
+                                                    <br>
+                                                    <small class="text-muted">@payment.Details</small>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Right Column - Contact Information -->
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-address-book me-2"></i>Contact Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <!-- Email -->
+                                @if (!string.IsNullOrEmpty(Model.Email))
+                                {
+                                    <div class="contact-item mb-3">
+                                        <i class="fas fa-envelope text-primary me-2"></i>
+                                        <strong>Email:</strong><br>
+                                        <a href="mailto:@Model.Email" class="text-decoration-none">@Model.Email</a>
+                                    </div>
+                                }
+
+                                <!-- Phone -->
+                                @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                                {
+                                    <div class="contact-item mb-3">
+                                        <i class="fas fa-phone text-primary me-2"></i>
+                                        <strong>Phone:</strong><br>
+                                        <a href="tel:@Model.PhoneNumber" class="text-decoration-none">@Model.PhoneNumber</a>
+                                    </div>
+                                }
+
+                                <!-- Address -->
+                                @if (!string.IsNullOrEmpty(Model.Address))
+                                {
+                                    <div class="contact-item mb-3">
+                                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                                        <strong>Address:</strong><br>
+                                        <span>@Model.Address</span>
+                                    </div>
+                                }
+
+                                <!-- Website -->
+                                @if (!string.IsNullOrEmpty(Model.Website))
+                                {
+                                    <div class="contact-item mb-3">
+                                        <i class="fas fa-globe text-primary me-2"></i>
+                                        <strong>Website:</strong><br>
+                                        <a href="@Model.Website" target="_blank" class="text-decoration-none">@Model.Website</a>
+                                    </div>
+                                }
+
+                                <!-- Established Date -->
+                                <div class="contact-item">
+                                    <i class="fas fa-calendar-alt text-primary me-2"></i>
+                                    <strong>Established:</strong><br>
+                                    <span>@Model.EstablishedDate.ToString("MMMM dd, yyyy")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    int GetDayOrder(string dayName)
+    {
+        return dayName.ToLower() switch
+        {
+            "monday" => 1,
+            "tuesday" => 2,
+            "wednesday" => 3,
+            "thursday" => 4,
+            "friday" => 5,
+            "saturday" => 6,
+            "sunday" => 7,
+            _ => 8
+        };
+    }
+}
+
+@section Scripts {
+    <!-- FontAwesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+}

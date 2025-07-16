@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Company Dashboard</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/CompanyStyle.css" />
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .btn-link {
+            color: var(--text-light) !important;
+            transition: color 0.3s ease;
+        }
+
+            .btn-link:hover {
+                color: var(--golden-accent) !important;
+            }
+
+        .navbar-nav .nav-link {
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: var(--golden-accent) !important;
+                background: rgba(255,255,255,0.1);
+                border-radius: 6px;
+            }
+
+        .dropdown-menu {
+            background: var(--primary-navy);
+            border: 2px solid var(--accent-orange);
+            box-shadow: 0 8px 25px rgba(30, 58, 95, 0.3);
+        }
+
+        .dropdown-item {
+            color: var(--text-muted) !important;
+            transition: all 0.3s ease;
+        }
+
+            .dropdown-item:hover {
+                background: linear-gradient(135deg, var(--warm-blue), var(--light-teal)) !important;
+                color: var(--text-light) !important;
+            }
+
+        .dropdown-divider {
+            border-color: var(--accent-orange);
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" asp-controller="CompanyDash" asp-action="Index">Company Dashboard</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <div class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" asp-controller="CompanyDash" asp-action="Edit">Settings</a></li>
+                            <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" asp-controller="Account" asp-action="SignOut">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Manage</div>
+
+                        <!-- Home Link -->
+                        <a class="nav-link" asp-controller="CompanyDash" asp-action="Index" data-nav="home">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
+                            Home
+                        </a>
+
+                        <!-- Edit Information Link -->
+                        <a class="nav-link" asp-controller="CompanyDash" asp-action="Edit" data-nav="edit">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></div>
+                            Edit Information
+                        </a>
+
+
+                        <!-- Travel Creation Link -->
+                        <a class="nav-link" asp-controller="Travel" asp-action="Create" data-nav="create">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-square-plus"></i></div>
+                            Travel Creation
+                        </a>
+
+                        <!-- Your Travels Link -->
+                        <a class="nav-link" asp-controller="Travel" asp-action="Index" data-nav="travels">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-globe"></i></div>
+                            Your travels
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <div class="container">
+                <main role="main" class="pb-3">
+                    <!-- Your page content goes here -->
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/scripts.js"></script>
+
+    <!-- Active Navigation Script - Runs after SB Admin scripts -->
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for other scripts to load
+            setTimeout(function() {
+                setActiveNavigation();
+            }, 100);
+        });
+
+        function setActiveNavigation() {
+            // Get current URL path
+            var currentPath = window.location.pathname.toLowerCase();
+
+            // Remove active class from all nav links
+            var navLinks = document.querySelectorAll('.sb-sidenav .nav-link');
+            navLinks.forEach(function(link) {
+                link.classList.remove('active');
+            });
+
+            // Add active class based on current path
+            var activeLink = null;
+
+            if (currentPath.includes('/companydash/index') || currentPath === '/companydash' || currentPath === '/' || currentPath === '') {
+                activeLink = document.querySelector('a[data-nav="home"]');
+            }
+            else if (currentPath.includes('/companydash/edit')) {
+                activeLink = document.querySelector('a[data-nav="edit"]');
+            }
+            else if (currentPath.includes('/travel/index')) {
+                activeLink = document.querySelector('a[data-nav="travels"]');
+            }
+            else if (currentPath.includes('/travel/create')) {
+                activeLink = document.querySelector('a[data-nav="create"]');
+            }
+
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Debug: Log current path and active link
+            console.log('Current Path:', currentPath);
+            console.log('Active Link:', activeLink);
+        }
+    </script>
+
+    @RenderSection("ValidationScriptSection", required: false)
+    @await RenderSectionAsync("Styles", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

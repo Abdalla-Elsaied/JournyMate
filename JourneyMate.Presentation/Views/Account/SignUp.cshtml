@@ -1,0 +1,499 @@
+﻿@model SignUpVm
+
+@{
+    ViewData["Title"] = "Create Account - JourneyMate";
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            /* background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>'); */
+            pointer-events: none;
+        }
+
+    .signup-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 2rem 1rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .signup-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        padding: 3rem;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 100%;
+        max-width: 480px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .signup-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        }
+
+    .brand-section {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .brand-logo {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    }
+
+        .brand-logo::after {
+            content: '✈️';
+            font-size: 24px;
+        }
+
+    .brand-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.5px;
+    }
+
+    .brand-subtitle {
+        color: #6b7280;
+        font-size: 0.95rem;
+        font-weight: 400;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+        position: relative;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+        background: #ffffff;
+        color: #1f2937;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .form-control::placeholder {
+            color: #9ca3af;
+        }
+
+    .form-select {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+        background: #ffffff url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 12px center;
+        background-size: 16px;
+        appearance: none;
+        color: #1f2937;
+    }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+    .password-toggle {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #6b7280;
+        font-size: 1.1rem;
+        padding: 4px;
+        border-radius: 4px;
+        transition: color 0.2s ease;
+    }
+
+        .password-toggle:hover {
+            color: #374151;
+        }
+
+    .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .custom-checkbox {
+        position: relative;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+        .custom-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+    .checkmark {
+        width: 20px;
+        height: 20px;
+        background: #ffffff;
+        border: 2px solid #e5e7eb;
+        border-radius: 6px;
+        position: relative;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+    }
+
+    .custom-checkbox input:checked ~ .checkmark {
+        background: #667eea;
+        border-color: #667eea;
+    }
+
+    .checkmark::after {
+        content: '';
+        position: absolute;
+        left: 6px;
+        top: 2px;
+        width: 6px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .custom-checkbox input:checked ~ .checkmark::after {
+        opacity: 1;
+    }
+
+    .checkbox-label {
+        color: #6b7280;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        cursor: pointer;
+    }
+
+        .checkbox-label a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+            .checkbox-label a:hover {
+                text-decoration: underline;
+            }
+
+    .submit-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+    .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #6b7280;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+        margin-top: 1.5rem;
+    }
+
+        .back-link:hover {
+            color: #667eea;
+        }
+
+    .text-danger {
+        color: #ef4444;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        display: block;
+    }
+
+    .validation-summary {
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        color: #dc2626;
+        font-size: 0.9rem;
+    }
+
+        .validation-summary ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        .validation-summary li {
+            margin-bottom: 0.25rem;
+        }
+
+    @@media (max-width: 640px) {
+        .signup-card
+
+    {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+        border-radius: 16px;
+    }
+
+    .brand-title {
+        font-size: 1.75rem;
+    }
+
+    }
+
+    /* Loading animation */
+    .loading {
+        position: relative;
+        pointer-events: none;
+    }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+    @@keyframes spin {
+        0%
+
+    {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+
+    }
+</style>
+
+<div class="signup-container">
+    <div class="signup-card">
+        <div class="brand-section">
+            <div class="brand-logo"></div>
+            <h1 class="brand-title">JourneyMate</h1>
+            <p class="brand-subtitle">Create User account to start The journey</p>
+        </div>
+
+        <form asp-action="SignUp" id="signupForm">
+            <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+
+            <div class="form-group">
+                <label asp-for="UserName" class="form-label">Username</label>
+                <input asp-for="UserName" class="form-control" placeholder="Choose a unique username" autocomplete="username" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Email Address</label>
+                <input asp-for="Email" type="email" class="form-control" placeholder="Enter your email address" autocomplete="email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">Password</label>
+                <div style="position: relative;">
+                    <input asp-for="Password" type="password" class="form-control" placeholder="Create a strong password" autocomplete="new-password" id="passwordField" />
+                    <button type="button" class="password-toggle" onclick="togglePassword('passwordField')">👁️</button>
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="form-label">Confirm Password</label>
+                <div style="position: relative;">
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" autocomplete="new-password" id="confirmPasswordField" />
+                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPasswordField')">👁️</button>
+                </div>
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="roleName" class="form-label">Account Type</label>
+                <select asp-for="roleName" class="form-select" asp-items="@(ViewData["Roles"] as List<SelectListItem>)">
+                    <option value="">Select your account type</option>
+                </select>
+                <span asp-validation-for="roleName" class="text-danger"></span>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="custom-checkbox">
+                    <input asp-for="IsAgree" type="checkbox" />
+                    <span class="checkmark"></span>
+                </label>
+                <label asp-for="IsAgree" class="checkbox-label">
+                    I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Create Account
+            </button>
+        </form>
+
+        <div style="text-align: center;">
+            <a asp-controller="User" asp-action="Index" class="back-link">
+                ← Back to User List
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePassword(fieldId) {
+        const field = document.getElementById(fieldId);
+        const button = field.nextElementSibling;
+
+        if (field.type === 'password') {
+            field.type = 'text';
+            button.textContent = '🙈';
+        } else {
+            field.type = 'password';
+            button.textContent = '👁️';
+        }
+    }
+
+    // Form submission with loading state
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.classList.add('loading');
+        submitBtn.textContent = 'Creating Account...';
+        submitBtn.disabled = true;
+    });
+
+    // Real-time password strength indicator
+    document.getElementById('passwordField').addEventListener('input', function(e) {
+        const password = e.target.value;
+        const strength = calculatePasswordStrength(password);
+        // You can add password strength indicator here
+    });
+
+    function calculatePasswordStrength(password) {
+        let strength = 0;
+        if (password.length >= 8) strength++;
+        if (/[A-Z]/.test(password)) strength++;
+        if (/[a-z]/.test(password)) strength++;
+        if (/[0-9]/.test(password)) strength++;
+        if (/[^A-Za-z0-9]/.test(password)) strength++;
+        return strength;
+    }
+
+    // Auto-focus first input
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('input[name="UserName"]').focus();
+    });
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

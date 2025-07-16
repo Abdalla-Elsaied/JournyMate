@@ -1,0 +1,9 @@
+﻿global using JourneyMate.Core.Models.Company_Aggregation;
+global using JourneyMate.Core.Models;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using JourneyMate.Core.Interfaces;
+global using JourneyMate.Infrastracture.Data;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.Extensions.DependencyInjection;

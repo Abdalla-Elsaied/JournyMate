@@ -1,0 +1,14 @@
+﻿global using JourneyMate.Application.IServeces;
+global using Microsoft.AspNetCore.Identity;
+global using JourneyMate.Core.Models.Company_Aggregation;
+global using JourneyMate.Core.Models;
+global using System.ComponentModel.DataAnnotations;
+global using Microsoft.AspNetCore.Http;
+global using JourneyMate.Application.ViewModel.CreationVM;
+global using Microsoft.EntityFrameworkCore;
+global using JourneyMate.Application.ViewModel;
+global using Microsoft.AspNetCore.Hosting;
+global using AutoMapper;
+global using JourneyMate.Core.Interfaces;
+global using Microsoft.Extensions.Logging;
+global using JourneyMate.Application.DTOs;

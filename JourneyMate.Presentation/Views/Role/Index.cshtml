@@ -1,0 +1,262 @@
+﻿@model IEnumerable<RoleVm>
+@{
+    ViewData["Title"] = "All Roles";
+}
+
+<div class="container-fluid px-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0 text-white fw-bold">
+                <i class="fas fa-users-cog me-2 text-primary"></i>
+                Role Management
+            </h1>
+            <p class="text-light mb-0">Manage system roles and permissions</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary btn-lg shadow-sm">
+            <i class="fas fa-plus-circle me-2"></i>
+            Create New Role
+        </a>
+    </div>
+
+    <!-- Search Section -->
+    <div class="card shadow-sm mb-4 bg-dark border-secondary">
+        <div class="card-body">
+            <form asp-action="Index" class="row g-3 align-items-end">
+                <div class="col-md-8">
+                    <label for="searchInput" class="form-label fw-semibold text-white">
+                        <i class="fas fa-search me-1"></i>
+                        Search Roles
+                    </label>
+                    <input type="text"
+                           id="searchInput"
+                           class="form-control form-control-lg bg-dark text-white border-secondary"
+                           name="name"
+                           placeholder="Enter role name to search..."
+                           value="@ViewBag.SearchTerm" />
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-success btn-lg w-100">
+                        <i class="fas fa-search me-2"></i>
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Results Section -->
+    @if (Model.Count() > 0)
+    {
+        <!-- Stats Card -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card border-left-primary shadow h-100 py-2 bg-dark border-secondary">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Roles
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-white">
+                                    @Model.Count()
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roles Table -->
+        <div class="card shadow mb-4 bg-dark border-secondary">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-dark border-secondary">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    <i class="fas fa-table me-2"></i>
+                    Roles List
+                </h6>
+                <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink"
+                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in bg-dark border-secondary"
+                         aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header text-light">Actions:</div>
+                        <a class="dropdown-item text-light" href="#" onclick="exportTable()">
+                            <i class="fas fa-download fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Export Data
+                        </a>
+                        <a class="dropdown-item text-light" href="#" onclick="printTable()">
+                            <i class="fas fa-print fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Print List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0 bg-dark">
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover mb-0" id="rolesTable">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th class="fw-bold text-white">
+                                    <i class="fas fa-hashtag me-2"></i>
+                                    @Html.DisplayNameFor(R => R.Id)
+                                </th>
+                                <th class="fw-bold text-white">
+                                    <i class="fas fa-user-tag me-2"></i>
+                                    @Html.DisplayNameFor(R => R.RoleName)
+                                </th>
+                                <th class="fw-bold text-center text-white">
+                                    <i class="fas fa-cogs me-2"></i>
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model)
+                            {
+                                <tr class="align-middle">
+                                    <td class="text-light">
+                                        <small class="font-monospace">@Html.DisplayFor(U => role.Id)</small>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="avatar-sm bg-primary-subtle rounded-circle d-flex align-items-center justify-content-center me-3">
+                                                <i class="fas fa-user-shield text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-0 fw-semibold text-white">@Html.DisplayFor(U => role.RoleName)</h6>
+                                                <small class="text-light">Role ID: @role.Id.Substring(0, 8)...</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group" aria-label="Role actions">
+                                            
+                                            <a href="@Url.Action("Edit", new { id = role.Id })"
+                                               class="btn btn-outline-warning btn-sm"
+                                               title="Edit Role">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="@Url.Action("Delete", new { id = role.Id })"
+                                               class="btn btn-outline-danger btn-sm"
+                                               title="Delete Role">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- Empty State -->
+        <div class="card shadow bg-dark border-secondary">
+            <div class="card-body text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-users-slash fa-4x text-muted opacity-50"></i>
+                </div>
+                <h4 class="text-light mb-3">No Roles Found</h4>
+                <p class="text-light mb-4">
+                    @if (!string.IsNullOrEmpty(ViewBag.SearchTerm as string))
+                    {
+                        <span>No roles match your search criteria. Try adjusting your search terms.</span>
+                    }
+                    else
+                    {
+                        <span>There are currently no roles in the system. Create your first role to get started.</span>
+                    }
+                </p>
+                <div class="d-flex gap-2 justify-content-center">
+                    <a asp-action="Create" class="btn btn-primary">
+                        <i class="fas fa-plus-circle me-2"></i>
+                        Create First Role
+                    </a>
+                    @if (!string.IsNullOrEmpty(ViewBag.SearchTerm as string))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-2"></i>
+                            Clear Search
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Custom Styles -->
+<style>
+    .border-left-primary {
+        border-left: 0.25rem solid #4e73df !important;
+    }
+
+    .bg-primary-subtle {
+        background-color: rgba(78, 115, 223, 0.1) !important;
+    }
+
+    .avatar-sm {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 0.875rem;
+    }
+
+    .table-responsive {
+        border-radius: 0.375rem;
+    }
+
+    .table thead th {
+        border-bottom: 2px solid #dee2e6;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.05);
+        transition: background-color 0.15s ease-in-out;
+    }
+
+    .btn-group .btn {
+        margin: 0 1px;
+    }
+
+    .card {
+        border: 0;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+    }
+
+    .card-header {
+        background-color: #f8f9fc;
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    .font-monospace {
+        font-family: 'Courier New', monospace !important;
+    }
+</style>
+
+<!-- Custom JavaScript -->
+<script>
+    function exportTable() {
+        // Add export functionality
+        console.log('Export functionality would be implemented here');
+    }
+
+    function printTable() {
+        window.print();
+    }
+
+    // Add search functionality enhancement
+    document.getElementById('searchInput')?.addEventListener('input', function(e) {
+        // Optional: Add real-time search suggestions or validation
+    });
+</script>

@@ -1,0 +1,299 @@
+[
+  {
+    "UserName": "pharaohtravels@example.com",
+    "NormalizedUserName": "PHARAOHTRAVELS@EXAMPLE.COM",
+    "Email": "pharaohtravels@example.com",
+    "NormalizedEmail": "PHARAOHTRAVELS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "2da78efb-ee5f-41dd-8b6d-3d0d67701341",
+    "ConcurrencyStamp": "00b6ab12-977f-443e-b623-555ef73605b7",
+    "PhoneNumber": "01521572959",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Pharaoh Travels Admin"
+  },
+  {
+    "UserName": "nileexplorers@example.com",
+    "NormalizedUserName": "NILEEXPLORERS@EXAMPLE.COM",
+    "Email": "nileexplorers@example.com",
+    "NormalizedEmail": "NILEEXPLORERS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "09e6e124-ba9e-4b4f-9583-232bd6926eab",
+    "ConcurrencyStamp": "2ada7628-a84e-44ee-b015-c96f828b7cb3",
+    "PhoneNumber": "01199242285",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Nile Explorers Admin"
+  },
+  {
+ 
+    "UserName": "cleopatratours@example.com",
+    "NormalizedUserName": "CLEOPATRATOURS@EXAMPLE.COM",
+    "Email": "cleopatratours@example.com",
+    "NormalizedEmail": "CLEOPATRATOURS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "337a2b6c-9eff-4a03-ad2e-6aea27f5f343",
+    "ConcurrencyStamp": "18f488d2-8a88-4ebf-ace7-f744089fd2f1",
+    "PhoneNumber": "01988599425",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Cleopatra Tours Admin"
+  },
+  {
+  
+    "UserName": "ancientpathways@example.com",
+    "NormalizedUserName": "ANCIENTPATHWAYS@EXAMPLE.COM",
+    "Email": "ancientpathways@example.com",
+    "NormalizedEmail": "ANCIENTPATHWAYS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "62cce18c-7264-40dd-a7a2-c1ff3de603e5",
+    "ConcurrencyStamp": "4b2ee249-294e-4973-9190-d9420fbabd27",
+    "PhoneNumber": "01198769990",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Ancient Pathways Admin"
+  },
+  {
+  
+    "UserName": "pyramidsgateway@example.com",
+    "NormalizedUserName": "PYRAMIDSGATEWAY@EXAMPLE.COM",
+    "Email": "pyramidsgateway@example.com",
+    "NormalizedEmail": "PYRAMIDSGATEWAY@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "98b3c11c-1d10-4fe8-a0ca-69b75a1ba284",
+    "ConcurrencyStamp": "cb7d4dd1-1e5c-4e1b-9902-f64877dad419",
+    "PhoneNumber": "01508384029",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Pyramids Gateway Admin"
+  },
+  {
+   
+    "UserName": "sphinxjourneys@example.com",
+    "NormalizedUserName": "SPHINXJOURNEYS@EXAMPLE.COM",
+    "Email": "sphinxjourneys@example.com",
+    "NormalizedEmail": "SPHINXJOURNEYS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "f4fd886a-cd71-4ef9-9764-9b67ea3015b6",
+    "ConcurrencyStamp": "62483c5e-3694-4760-8c39-c925183e23b5",
+    "PhoneNumber": "01862172471",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Sphinx Journeys Admin"
+  },
+  {
+  
+    "UserName": "oasisadventures@example.com",
+    "NormalizedUserName": "OASISADVENTURES@EXAMPLE.COM",
+    "Email": "oasisadventures@example.com",
+    "NormalizedEmail": "OASISADVENTURES@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "b31bf880-270b-44ee-a202-ca358b16e5f5",
+    "ConcurrencyStamp": "50cf24cf-0b8b-4db5-8887-9f347089ca94",
+    "PhoneNumber": "01339287809",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Oasis Adventures Admin"
+  },
+  {
+   
+    "UserName": "desertdreams@example.com",
+    "NormalizedUserName": "DESERTDREAMS@EXAMPLE.COM",
+    "Email": "desertdreams@example.com",
+    "NormalizedEmail": "DESERTDREAMS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "89ab1b3d-b312-4794-b447-5e32324149fb",
+    "ConcurrencyStamp": "30c04465-dd5d-4853-b6f5-026dc2587411",
+    "PhoneNumber": "01031057943",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Desert Dreams Admin"
+  },
+  {
+  
+    "UserName": "horusvoyages@example.com",
+    "NormalizedUserName": "HORUSVOYAGES@EXAMPLE.COM",
+    "Email": "horusvoyages@example.com",
+    "NormalizedEmail": "HORUSVOYAGES@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "3a3d53d1-3c18-4959-8c40-ec894edddcf3",
+    "ConcurrencyStamp": "2a2d8308-d35a-471e-a87e-34213e068812",
+    "PhoneNumber": "01711550224",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Horus Voyages Admin"
+  },
+  {
+  
+    "UserName": "tuttreks@example.com",
+    "NormalizedUserName": "TUTTREKS@EXAMPLE.COM",
+    "Email": "tuttreks@example.com",
+    "NormalizedEmail": "TUTTREKS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "6f34fa03-4705-478c-9463-e76408a953af",
+    "ConcurrencyStamp": "b56da293-2c68-41d3-9cd8-46f61d0139d1",
+    "PhoneNumber": "01888529862",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Tut Treks Admin"
+  },
+  {
+   
+    "UserName": "blueniletrips@example.com",
+    "NormalizedUserName": "BLUENILETRIPS@EXAMPLE.COM",
+    "Email": "blueniletrips@example.com",
+    "NormalizedEmail": "BLUENILETRIPS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "03c39c14-e8fd-451c-944e-aa4cf74f7e15",
+    "ConcurrencyStamp": "a14a060c-b0db-43ef-87e7-5d79650ad0dc",
+    "PhoneNumber": "01006042766",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Blue Nile Trips Admin"
+  },
+  {
+  
+    "UserName": "redseaescapes@example.com",
+    "NormalizedUserName": "REDSEAESCAPES@EXAMPLE.COM",
+    "Email": "redseaescapes@example.com",
+    "NormalizedEmail": "REDSEAESCAPES@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "014fbd35-dc89-4161-9960-fc9324e8834c",
+    "ConcurrencyStamp": "2d75f198-f608-41b7-8924-81a88e793262",
+    "PhoneNumber": "01699528052",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Red Sea Escapes Admin"
+  },
+  {
+   
+    "UserName": "deltadiscoveries@example.com",
+    "NormalizedUserName": "DELTADISCOVERIES@EXAMPLE.COM",
+    "Email": "deltadiscoveries@example.com",
+    "NormalizedEmail": "DELTADISCOVERIES@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "3b92b29d-d1c6-4027-8432-5e11fb7a82a2",
+    "ConcurrencyStamp": "de593e4e-a8b4-4d60-b1de-6939b25e117c",
+    "PhoneNumber": "01665924404",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Delta Discoveries Admin"
+  },
+  {
+   
+    "UserName": "luxorlegends@example.com",
+    "NormalizedUserName": "LUXORLEGENDS@EXAMPLE.COM",
+    "Email": "luxorlegends@example.com",
+    "NormalizedEmail": "LUXORLEGENDS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "39c9b123-c6ad-45e0-9eeb-91cb682c5a3a",
+    "ConcurrencyStamp": "5babb2bd-e9c5-4f54-bb89-33a04bc337a1",
+    "PhoneNumber": "01671837376",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Luxor Legends Admin"
+  },
+  {
+  
+    "UserName": "aswanadventures@example.com",
+    "NormalizedUserName": "ASWANADVENTURES@EXAMPLE.COM",
+    "Email": "aswanadventures@example.com",
+    "NormalizedEmail": "ASWANADVENTURES@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "61c71006-17f1-49dd-97d8-a88698f9bbed",
+    "ConcurrencyStamp": "9ab5af7d-1653-4eb0-818b-6f65009e7ee1",
+    "PhoneNumber": "01200537372",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Aswan Adventures Admin"
+  },
+  {
+  
+    "UserName": "goldensuntours@example.com",
+    "NormalizedUserName": "GOLDENSUNTOURS@EXAMPLE.COM",
+    "Email": "goldensuntours@example.com",
+    "NormalizedEmail": "GOLDENSUNTOURS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "7baf13ba-5a02-412c-b8c3-3f33d82ab563",
+    "ConcurrencyStamp": "e2436889-8bce-4dfc-b76c-9c36c5163b92",
+    "PhoneNumber": "01401418959",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Golden Sun Tours Admin"
+  },
+  {
+   
+    "UserName": "camelcaravan@example.com",
+    "NormalizedUserName": "CAMELCARAVAN@EXAMPLE.COM",
+    "Email": "camelcaravan@example.com",
+    "NormalizedEmail": "CAMELCARAVAN@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "15e00eff-5a2a-4fe9-9e4f-c16ce023e92f",
+    "ConcurrencyStamp": "6b5a8810-3d6b-4409-8156-8e0a1d3e2237",
+    "PhoneNumber": "01505983989",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Camel Caravan Admin"
+  },
+  {
+   
+    "UserName": "templetrails@example.com",
+    "NormalizedUserName": "TEMPLETRAILS@EXAMPLE.COM",
+    "Email": "templetrails@example.com",
+    "NormalizedEmail": "TEMPLETRAILS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "f6ef1b8c-2db4-4d97-82dc-b41a761977ba",
+    "ConcurrencyStamp": "7b9f14a8-da9f-4170-a114-4f207759e86b",
+    "PhoneNumber": "01982131883",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Temple Trails Admin"
+  },
+  {
+    "UserName": "cairocompass@example.com",
+    "NormalizedUserName": "CAIROCOMPASS@EXAMPLE.COM",
+    "Email": "cairocompass@example.com",
+    "NormalizedEmail": "CAIROCOMPASS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "5553023a-9206-4de2-8a90-bbc8a06a3443",
+    "ConcurrencyStamp": "f533056c-ee5a-4891-b623-7669d8bada06",
+    "PhoneNumber": "01889945619",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Cairo Compass Admin"
+  },
+  {
+  
+    "UserName": "mysticegypttours@example.com",
+    "NormalizedUserName": "MYSTICEGYPTTOURS@EXAMPLE.COM",
+    "Email": "mysticegypttours@example.com",
+    "NormalizedEmail": "MYSTICEGYPTTOURS@EXAMPLE.COM",
+    "EmailConfirmed": true,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKsamplePasswordHash==",
+    "SecurityStamp": "1ad3b084-5870-4d53-b206-4f79cbe555d1",
+    "ConcurrencyStamp": "9a48b498-5699-4eaf-aca0-197fee921d2b",
+    "PhoneNumber": "01402424986",
+    "PhoneNumberConfirmed": true,
+    "LockoutEnabled": false,
+    "FullName": "Mystic Egypt Tours Admin"
+  }
+]

@@ -1,0 +1,13 @@
+D:\DEPI\Gproject\JourneyMate.Core\bin\Release\net9.0\JourneyMate.Core.deps.json
+D:\DEPI\Gproject\JourneyMate.Core\bin\Release\net9.0\JourneyMate.Core.dll
+D:\DEPI\Gproject\JourneyMate.Core\bin\Release\net9.0\JourneyMate.Core.pdb
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\JourneyMate.Core.csproj.AssemblyReference.cache
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\JourneyMate.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\JourneyMate.Core.AssemblyInfoInputs.cache
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\JourneyMate.Core.AssemblyInfo.cs
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\JourneyMate.Core.csproj.CoreCompileInputs.cache
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\JourneyMate.Core.sourcelink.json
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\JourneyMate.Core.dll
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\refint\JourneyMate.Core.dll
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\JourneyMate.Core.pdb
+D:\DEPI\Gproject\JourneyMate.Core\obj\Release\net9.0\ref\JourneyMate.Core.dll

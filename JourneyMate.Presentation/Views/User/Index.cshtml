@@ -1,0 +1,683 @@
+﻿@model UsersViewModel
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<div class="dashboard-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="dashboard-title">
+                <i class="fas fa-users me-3"></i>User Management
+            </h1>
+            <p class="dashboard-subtitle">Manage all users across your platform</p>
+        </div>
+        <div class="header-actions">
+            <div class="search-container me-3">
+                <input type="text" id="userSearch" class="form-control search-input" placeholder="Search users...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <a asp-controller="Account" asp-action="SignUp" class="btn btn-primary">
+                <i class="fas fa-user-plus me-2"></i>Add New User
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card stats-card-primary">
+            <div class="stats-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stats-content">
+                <h3 id="totalUsers">@Model.TotalUsers</h3>
+                <p>Total Users</p>
+            </div>
+            <div class="stats-trend">
+                <i class="fas fa-arrow-up"></i>
+                <span>+@Model.Statistics.TotalUsersGrowth%</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card stats-card-success">
+            <div class="stats-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="stats-content">
+                <h3 id="companyUsers">@Model.CompanyUsersCount</h3>
+                <p>Company Users</p>
+            </div>
+            <div class="stats-trend">
+                <i class="fas fa-arrow-up"></i>
+                <span>+@Model.Statistics.CompanyUsersGrowth%</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card stats-card-warning">
+            <div class="stats-icon">
+                <i class="fas fa-user-friends"></i>
+            </div>
+            <div class="stats-content">
+                <h3 id="regularUsers">@Model.RegularUsersCount</h3>
+                <p>Regular Users</p>
+            </div>
+            <div class="stats-trend">
+                <i class="fas fa-arrow-up"></i>
+                <span>+@Model.Statistics.RegularUsersGrowth%</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card stats-card-info">
+            <div class="stats-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="stats-content">
+                <h3 id="adminUsers">@Model.AdminUsersCount</h3>
+                <p>Admin Users</p>
+            </div>
+            <div class="stats-trend">
+                <i class="fas fa-minus"></i>
+                <span>@Model.Statistics.AdminUsersGrowth%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Enhanced Tabbed Interface -->
+<div class="card enhanced-tabs-card">
+    <div class="card-header">
+        <ul class="nav nav-tabs enhanced-tabs" id="userTabs" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" id="all-users-tab" data-bs-toggle="tab" data-bs-target="#all-users" type="button" role="tab">
+                    <i class="fas fa-users me-2"></i>All Users
+                    <span class="badge">@Model.TotalUsers</span>
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="company-users-tab" data-bs-toggle="tab" data-bs-target="#company-users" type="button" role="tab">
+                    <i class="fas fa-building me-2"></i>Company Users
+                    <span class="badge">@Model.CompanyUsersCount</span>
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="regular-users-tab" data-bs-toggle="tab" data-bs-target="#regular-users" type="button" role="tab">
+                    <i class="fas fa-user-friends me-2"></i>Regular Users
+                    <span class="badge">@Model.RegularUsersCount</span>
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="admin-users-tab" data-bs-toggle="tab" data-bs-target="#admin-users" type="button" role="tab">
+                    <i class="fas fa-user-shield me-2"></i>Admins
+                    <span class="badge">@Model.AdminUsersCount</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-body">
+        <div class="tab-content" id="userTabsContent">
+            <!-- All Users Tab -->
+            <div class="tab-pane fade show active" id="all-users" role="tabpanel">
+                <div class="table-responsive">
+                    <table class="table enhanced-table" id="allUsersTable">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-hashtag me-2"></i>ID</th>
+                                <th><i class="fas fa-user me-2"></i>Full Name</th>
+                                <th><i class="fas fa-envelope me-2"></i>Email</th>
+                                <th><i class="fas fa-phone me-2"></i>Phone</th>
+                                <th><i class="fas fa-user-tag me-2"></i>Roles</th>
+                                <th><i class="fas fa-cog me-2"></i>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.OtherUsers.Concat(Model.CompanyUsers))
+                            {
+                                <tr class="user-row" data-user-id="@user.Id">
+                                    <td>
+                                        <span class="user-id">@(user.Id?.Length > 8 ? user.Id.Substring(0, 8) + "..." : user.Id)</span>
+                                    </td>
+                                    <td>
+                                        <div class="user-info">
+                                            <div class="user-avatar">
+                                                @(GetUserInitial(user.FullName))
+                                            </div>
+                                            <div class="user-details">
+                                                <span class="user-name">@(user.FullName ?? "N/A")</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="user-email">@(user.Email ?? "N/A")</span>
+                                    </td>
+                                    <td>
+                                        <span class="user-phone">@(user.PhoneNumber ?? "N/A")</span>
+                                    </td>
+                                    <td>
+                                        <div class="roles-container">
+                                            @if (user.Roles != null && user.Roles.Any())
+                                            {
+                                                @foreach (var role in user.Roles)
+                                                {
+                                                    <span class="role-badge role-@role.ToLower()">@role</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span class="role-badge role-user">User</span>
+                                            }
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a asp-controller="User" asp-action="Details" asp-route-id="@user.Id"
+                                               class="btn-action btn-view" data-bs-toggle="tooltip" title="View Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id"
+                                               class="btn-action btn-edit" data-bs-toggle="tooltip" title="Edit User">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a asp-controller="User" asp-action="Delete" asp-route-id="@user.Id"
+                                               class="btn-action btn-delete" data-bs-toggle="tooltip" title="Delete User">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                          
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Company Users Tab -->
+            <div class="tab-pane fade" id="company-users" role="tabpanel">
+                <partial name="PartialViews/_EnhancedUserTablePartial" model="Model.CompanyUsers" />
+            </div>
+
+            <!-- Regular Users Tab -->
+            <div class="tab-pane fade" id="regular-users" role="tabpanel">
+                @{
+                    var regularUsers = Model.OtherUsers.Where(u => u.Roles == null || (!u.Roles.Contains("Admin") && !u.Roles.Contains("Super")));
+                }
+                <partial name="PartialViews/_EnhancedUserTablePartial" model="regularUsers" />
+            </div>
+
+            <!-- Admin Users Tab -->
+            <div class="tab-pane fade" id="admin-users" role="tabpanel">
+                @{
+                    var adminUsers = Model.OtherUsers.Where(u => u.Roles != null && (u.Roles.Contains("Admin") || u.Roles.Contains("Super")));
+                }
+                <partial name="PartialViews/_EnhancedUserTablePartial" model="adminUsers" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    private string GetUserInitial(string fullName)
+    {
+        if (string.IsNullOrWhiteSpace(fullName))
+        {
+            return "?";
+        }
+
+        var trimmed = fullName.Trim();
+        return trimmed.Length > 0 ? trimmed[0].ToString().ToUpper() : "?";
+    }
+}
+
+<!-- Enhanced Styles -->
+<style>
+    .dashboard-header {
+        margin-bottom: 2rem;
+    }
+
+    .dashboard-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+    }
+
+    .dashboard-subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-container {
+        position: relative;
+    }
+
+    .search-input {
+        padding-left: 2.5rem !important;
+        width: 300px;
+        background: var(--card-bg) !important;
+        border: 1px solid var(--border-color) !important;
+        color: var(--text-light) !important;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        z-index: 10;
+    }
+
+    /* Stats Cards */
+    .stats-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+    }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+    .stats-card-primary::before {
+        background: var(--primary-color);
+    }
+
+    .stats-card-success::before {
+        background: var(--success-color);
+    }
+
+    .stats-card-warning::before {
+        background: var(--warning-color);
+    }
+
+    .stats-card-info::before {
+        background: var(--accent-color);
+    }
+
+    .stats-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .stats-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        background: rgba(99, 102, 241, 0.1);
+        color: var(--primary-color);
+    }
+
+    .stats-content h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-light);
+        margin-bottom: 0.5rem;
+    }
+
+    .stats-content p {
+        color: var(--text-muted);
+        margin-bottom: 0;
+        font-weight: 500;
+    }
+
+    .stats-trend {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        color: var(--success-color);
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+
+    /* Enhanced Tabs */
+    .enhanced-tabs-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .enhanced-tabs {
+        border: none !important;
+        background: var(--darker-bg);
+        padding: 1rem;
+        margin: 0;
+    }
+
+        .enhanced-tabs .nav-link {
+            background: transparent !important;
+            border: none !important;
+            color: var(--text-muted) !important;
+            padding: 0.75rem 1.5rem !important;
+            margin-right: 0.5rem !important;
+            border-radius: 0.75rem !important;
+            transition: all 0.3s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            font-weight: 600 !important;
+        }
+
+            .enhanced-tabs .nav-link:hover {
+                background: var(--card-bg) !important;
+                color: var(--text-light) !important;
+            }
+
+            .enhanced-tabs .nav-link.active {
+                background: var(--primary-color) !important;
+                color: var(--text-light) !important;
+                box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+            }
+
+        .enhanced-tabs .badge {
+            background: rgba(255, 255, 255, 0.2) !important;
+            color: inherit !important;
+            font-size: 0.75rem !important;
+            margin-left: 0.5rem !important;
+        }
+
+    /* Enhanced Table */
+    .enhanced-table {
+        margin-bottom: 0 !important;
+    }
+
+        .enhanced-table thead th {
+            background: var(--darker-bg) !important;
+            color: var(--text-muted) !important;
+            font-weight: 600 !important;
+            text-transform: uppercase !important;
+            font-size: 0.8rem !important;
+            letter-spacing: 0.05em !important;
+            border: none !important;
+            padding: 1rem !important;
+        }
+
+    .user-row {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid var(--border-color) !important;
+    }
+
+        .user-row:hover {
+            background: rgba(99, 102, 241, 0.05) !important;
+            transform: translateX(4px);
+        }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .user-name {
+        font-weight: 600;
+        color: var(--text-light);
+    }
+
+    .user-email {
+        color: var(--text-muted);
+    }
+
+    .user-phone {
+        color: var(--text-muted);
+    }
+
+    .user-id {
+        font-family: monospace;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    /* Role Badges */
+    .roles-container {
+        display: flex;
+        gap: 0.25rem;
+        flex-wrap: wrap;
+    }
+
+    .role-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .role-admin, .role-super {
+        background: rgba(239, 68, 68, 0.1);
+        color: var(--danger-color);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .role-company {
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success-color);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .role-user {
+        background: rgba(6, 182, 212, 0.1);
+        color: var(--accent-color);
+        border: 1px solid rgba(6, 182, 212, 0.2);
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        border-radius: 0.5rem;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .btn-view {
+        background: rgba(6, 182, 212, 0.1);
+        color: var(--accent-color);
+    }
+
+        .btn-view:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+    .btn-edit {
+        background: rgba(245, 158, 11, 0.1);
+        color: var(--warning-color);
+    }
+
+        .btn-edit:hover {
+            background: var(--warning-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+    .btn-delete {
+        background: rgba(239, 68, 68, 0.1);
+        color: var(--danger-color);
+    }
+
+        .btn-delete:hover {
+            background: var(--danger-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .dashboard-title
+
+    {
+        font-size: 2rem;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .stats-card {
+        margin-bottom: 1rem;
+    }
+
+    .enhanced-tabs .nav-link {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    }
+</style>
+
+<!-- Enhanced JavaScript -->
+<script>
+    $(document).ready(function() {
+        // Initialize tooltips
+        $('[data-bs-toggle="tooltip"]').tooltip();
+
+        // Enhanced search functionality
+        $('#userSearch').on('keyup', function() {
+            var searchTerm = $(this).val().toLowerCase();
+            $('.user-row').each(function() {
+                var userName = $(this).find('.user-name').text().toLowerCase();
+                var userEmail = $(this).find('.user-email').text().toLowerCase();
+                var userRoles = $(this).find('.role-badge').text().toLowerCase();
+
+                if (userName.includes(searchTerm) || userEmail.includes(searchTerm) || userRoles.includes(searchTerm)) {
+                    $(this).show().addClass('search-highlight');
+                } else {
+                    $(this).hide().removeClass('search-highlight');
+                }
+            });
+        });
+
+        // Animate stats on load
+        $('.stats-card h3').each(function() {
+            var $this = $(this);
+            var countTo = parseInt($this.text());
+            $this.text('0');
+
+            $({ countNum: 0 }).animate({
+                countNum: countTo
+            }, {
+                duration: 2000,
+                easing: 'swing',
+                step: function() {
+                    $this.text(Math.floor(this.countNum));
+                },
+                complete: function() {
+                    $this.text(this.countNum);
+                }
+            });
+        });
+
+        // Enhanced tab switching with animations
+        $('.enhanced-tabs .nav-link').on('click', function() {
+            $('.tab-pane.active').fadeOut(150, function() {
+                $($(this).attr('href')).fadeIn(150);
+            });
+        });
+
+        // Handle delete button clicks
+        $('.btn-delete').on('click', function(e) {
+            e.preventDefault();
+            var userId = $(this).data('user-id');
+            var userName = $(this).data('user-name') || 'this user';
+
+            // Show confirmation dialog
+            if (confirm('Are you sure you want to delete user: ' + userName + '?\n\nThis action cannot be undone.')) {
+                // Create a form and submit it for deletion
+                var form = $('<form>', {
+                    'method': 'POST',
+                    'action': '/User/Delete/' + userId
+                });
+
+                // Add anti-forgery token if available
+                var token = $('input[name="__RequestVerificationToken"]').val();
+                if (token) {
+                    form.append($('<input>', {
+                        'type': 'hidden',
+                        'name': '__RequestVerificationToken',
+                        'value': token
+                    }));
+                }
+
+                // Add to body and submit
+                $('body').append(form);
+                form.submit();
+            }
+        });
+
+        // Table row hover effects
+        $('.user-row').hover(
+            function() {
+                $(this).find('.action-buttons').addClass('show-actions');
+            },
+            function() {
+                $(this).find('.action-buttons').removeClass('show-actions');
+            }
+        );
+    });
+</script>

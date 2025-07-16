@@ -1,0 +1,529 @@
+﻿@model JourneyMate.Application.ViewModel.ItineraryDayVm
+
+@{
+    ViewData["Title"] = "Create Itinerary Day";
+    Layout = "_CompanyLayout";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient-primary text-white py-3">
+                    <h4 class="mb-0 d-flex align-items-center">
+                        <i class="fas fa-calendar-plus me-3 fs-5"></i>
+                        <span>Create Itinerary Day for: <strong>@ViewBag.TravelTitle</strong></span>
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="CreateItinerary" method="post" novalidate>
+                        @Html.AntiForgeryToken()
+
+                        <!-- Hidden field for TravelId only - ID is auto-generated -->
+                        <input type="hidden" asp-for="TravelId" value="@ViewBag.TravelId" />
+
+                        <!-- Basic Information Section -->
+                        <div class="mb-4">
+                            <h5 class="section-title text-primary mb-3">
+                                <i class="fas fa-info-circle me-2"></i>Basic Information
+                            </h5>
+                            <div class="row">
+                                <!-- Title Field -->
+                                <div class="col-md-8 mb-3">
+                                    <label asp-for="Title" class="form-label fw-semibold">
+                                        <i class="fas fa-heading me-2 text-muted"></i>@Html.DisplayNameFor(m => m.Title)
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input asp-for="Title" class="form-control form-control-lg"
+                                           placeholder="Enter day title (e.g., Day 1: Arrival in Cairo)" />
+                                    <span asp-validation-for="Title" class="text-danger small d-block mt-1"></span>
+                                </div>
+
+                                <!-- Day Number Field -->
+                                <div class="col-md-4 mb-3">
+                                    <label asp-for="DayNumber" class="form-label fw-semibold">
+                                        <i class="fas fa-hashtag me-2 text-muted"></i>@Html.DisplayNameFor(m => m.DayNumber)
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input asp-for="DayNumber" type="number" min="1" max="365"
+                                           class="form-control form-control-lg text-center fw-bold"
+                                           placeholder="1" style="font-size: 1.2rem;" />
+                                    <span asp-validation-for="DayNumber" class="text-danger small d-block mt-1"></span>
+                                </div>
+                            </div>
+
+                            <!-- Description Field -->
+                            <div class="mb-3">
+                                <label asp-for="Description" class="form-label fw-semibold">
+                                    <i class="fas fa-align-left me-2 text-muted"></i>@Html.DisplayNameFor(m => m.Description)
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <textarea asp-for="Description" class="form-control" rows="4"
+                                          placeholder="Describe the day's activities and highlights in detail..."></textarea>
+                                <span asp-validation-for="Description" class="text-danger small d-block mt-1"></span>
+                            </div>
+                        </div>
+
+                        <!-- Timing Information Section -->
+                        <div class="mb-4">
+                            <h5 class="section-title text-primary mb-3">
+                                <i class="fas fa-clock me-2"></i>Timing Information
+                            </h5>
+                            <div class="row">
+                                <!-- Start Time Field -->
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="StartTime" class="form-label fw-semibold">
+                                        <i class="fas fa-play-circle me-2 text-success"></i>@Html.DisplayNameFor(m => m.StartTime)
+                                    </label>
+                                    <input asp-for="StartTime" type="time" class="form-control form-control-lg" />
+                                    <span asp-validation-for="StartTime" class="text-danger small d-block mt-1"></span>
+                                </div>
+
+                                <!-- End Time Field -->
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="EndTime" class="form-label fw-semibold">
+                                        <i class="fas fa-stop-circle me-2 text-danger"></i>@Html.DisplayNameFor(m => m.EndTime)
+                                    </label>
+                                    <input asp-for="EndTime" type="time" class="form-control form-control-lg" />
+                                    <span asp-validation-for="EndTime" class="text-danger small d-block mt-1"></span>
+                                    <div id="timeValidationMessage" class="text-danger small mt-1" style="display: none;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Information Section -->
+                        <div class="mb-4">
+                            <h5 class="section-title text-primary mb-3">
+                                <i class="fas fa-map-marker-alt me-2"></i>Location Information
+                            </h5>
+                            <div class="mb-3">
+                                <label asp-for="Location" class="form-label fw-semibold">
+                                    <i class="fas fa-location-dot me-2 text-muted"></i>@Html.DisplayNameFor(m => m.Location)
+                                </label>
+                                <input asp-for="Location" class="form-control form-control-lg"
+                                       placeholder="Enter main location for this day (e.g., Giza Pyramids, Downtown Cairo)" />
+                                <span asp-validation-for="Location" class="text-danger small d-block mt-1"></span>
+                            </div>
+                        </div>
+
+                        <!-- Activities Section -->
+                        <div class="mb-4">
+                            <h5 class="section-title text-primary mb-3">
+                                <i class="fas fa-list-check me-2"></i>Activities
+                            </h5>
+                            <div class="mb-3">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-light">
+                                        <i class="fas fa-plus text-primary"></i>
+                                    </span>
+                                    <input type="text" id="activityInput" class="form-control form-control-lg"
+                                           placeholder="Enter activity and press Enter to add (e.g., Pyramid tour, Museum visit)" />
+                                    <button type="button" id="addActivityBtn" class="btn btn-primary btn-lg px-4">
+                                        <i class="fas fa-plus me-2"></i>Add Activity
+                                    </button>
+                                </div>
+                                <div id="activitiesList" class="activities-container border rounded-3 p-3 bg-light min-height-100">
+                                    <div class="text-center text-muted py-3" id="noActivitiesText">
+                                        <i class="fas fa-clipboard-list fa-2x mb-2 opacity-50"></i>
+                                        <p class="mb-0">No activities added yet</p>
+                                        <small>Add activities using the input field above</small>
+                                    </div>
+                                </div>
+                                <small class="form-text text-muted mt-2">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    Press Enter or click "Add Activity" button to add activities to your itinerary
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Meal Options Section -->
+                        <div class="mb-4">
+                            <h5 class="section-title text-primary mb-3">
+                                <i class="fas fa-utensils me-2"></i>Meals Included
+                            </h5>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="meal-option p-3 border rounded-3 h-100">
+                                        <div class="form-check">
+                                            <input asp-for="IncludesBreakfast" class="form-check-input" id="breakfast" />
+                                            <label asp-for="IncludesBreakfast" class="form-check-label fw-semibold" for="breakfast">
+                                                <i class="fas fa-coffee me-2 text-warning"></i>Breakfast
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="meal-option p-3 border rounded-3 h-100">
+                                        <div class="form-check">
+                                            <input asp-for="IncludesLunch" class="form-check-input" id="lunch" />
+                                            <label asp-for="IncludesLunch" class="form-check-label fw-semibold" for="lunch">
+                                                <i class="fas fa-hamburger me-2 text-success"></i>Lunch
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="meal-option p-3 border rounded-3 h-100">
+                                        <div class="form-check">
+                                            <input asp-for="IncludesDinner" class="form-check-input" id="dinner" />
+                                            <label asp-for="IncludesDinner" class="form-check-label fw-semibold" for="dinner">
+                                                <i class="fas fa-wine-glass-alt me-2 text-danger"></i>Dinner
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Notes Section -->
+                        <div class="mb-4">
+                            <h5 class="section-title text-primary mb-3">
+                                <i class="fas fa-sticky-note me-2"></i>Additional Information
+                            </h5>
+                            <div class="mb-3">
+                                <label asp-for="Notes" class="form-label fw-semibold">
+                                    <i class="fas fa-note-sticky me-2 text-muted"></i>@Html.DisplayNameFor(m => m.Notes)
+                                </label>
+                                <textarea asp-for="Notes" class="form-control" rows="4"
+                                          placeholder="Additional notes, special instructions, dress code, weather considerations, or any important information for this day..."></textarea>
+                                <span asp-validation-for="Notes" class="text-danger small d-block mt-1"></span>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="@Url.Action("Index", "Travel")"
+                               class="btn btn-outline-secondary btn-lg px-4">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Travel
+                            </a>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-primary btn-lg px-4" onclick="resetForm()">
+                                    <i class="fas fa-undo me-2"></i>Reset Form
+                                </button>
+                                <button type="submit" class="btn btn-success btn-lg px-4">
+                                    <i class="fas fa-save me-2"></i>Create Itinerary Day
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+    }
+
+    .section-title {
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem !important;
+        font-weight: 600;
+    }
+
+    .activities-container {
+        min-height: 100px;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .activity-item {
+        transition: all 0.3s ease;
+        border: 1px solid #dee2e6;
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        padding: 12px;
+    }
+
+        .activity-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #007bff;
+        }
+
+    .activity-text {
+        font-weight: 500;
+        color: #333;
+    }
+
+    .meal-option {
+        transition: all 0.3s ease;
+        cursor: pointer;
+        background: white;
+    }
+
+        .meal-option:hover {
+            background: #f8f9fa !important;
+            border-color: #007bff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .meal-option input:checked + label {
+            color: #007bff;
+            font-weight: 600;
+        }
+
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+    }
+
+    .min-height-100 {
+        min-height: 100px;
+    }
+
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .form-control-lg {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+</style>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            let activities = [];
+
+            // Auto-generate title based on day number
+            $('#DayNumber').on('input', function() {
+                var dayNumber = $(this).val();
+                var currentTitle = $('#Title').val();
+                if (dayNumber && (!currentTitle || currentTitle.startsWith('Day ') || currentTitle.trim() === '')) {
+                    $('#Title').val('Day ' + dayNumber + ': ');
+                    $('#Title').focus();
+                    // Move cursor to the end
+                    var titleField = $('#Title')[0];
+                    titleField.setSelectionRange(titleField.value.length, titleField.value.length);
+                }
+            });
+
+            // Enhanced time validation
+            function validateTimeRange() {
+                var startTime = $('#StartTime').val();
+                var endTime = $('#EndTime').val();
+                var messageDiv = $('#timeValidationMessage');
+
+                if (startTime && endTime) {
+                    if (startTime >= endTime) {
+                        messageDiv.text('End time must be after start time').show();
+                        $('#EndTime').addClass('is-invalid');
+                        return false;
+                    } else {
+                        messageDiv.hide();
+                        $('#EndTime').removeClass('is-invalid');
+                        return true;
+                    }
+                }
+                messageDiv.hide();
+                $('#EndTime').removeClass('is-invalid');
+                return true;
+            }
+
+            $('#StartTime, #EndTime').on('change', validateTimeRange);
+
+            // Enhanced day number validation
+            $('#DayNumber').on('blur', function() {
+                var dayNumber = parseInt($(this).val());
+                if (dayNumber < 1 || dayNumber > 365) {
+                    $(this).addClass('is-invalid');
+                    if (dayNumber < 1) {
+                        alert('Day number must be at least 1');
+                    } else {
+                        alert('Day number cannot exceed 365');
+                    }
+                    $(this).focus();
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            // Activities Management
+            function addActivity() {
+                const activityInput = $('#activityInput');
+                const activityText = activityInput.val().trim();
+
+                if (!activityText) {
+                    showMessage('Please enter an activity!', 'warning');
+                    activityInput.focus();
+                    return;
+                }
+
+                if (activities.includes(activityText)) {
+                    showMessage('This activity is already added!', 'warning');
+                    activityInput.focus();
+                    return;
+                }
+
+                if (activities.length >= 20) {
+                    showMessage('Maximum 20 activities allowed per day!', 'warning');
+                    return;
+                }
+
+                activities.push(activityText);
+                renderActivities();
+                activityInput.val('');
+                activityInput.focus();
+                showMessage('Activity added successfully!', 'success');
+            }
+
+            function removeActivity(index) {
+                if (confirm('Are you sure you want to remove this activity?')) {
+                    activities.splice(index, 1);
+                    renderActivities();
+                    showMessage('Activity removed successfully!', 'info');
+                }
+            }
+
+            function renderActivities() {
+                const container = $('#activitiesList');
+                const noActivitiesText = $('#noActivitiesText');
+
+                if (activities.length === 0) {
+                    noActivitiesText.show();
+                    container.find('.activity-item').remove();
+                    container.find('input[name^="Activities"]').remove();
+                } else {
+                    noActivitiesText.hide();
+                    container.find('.activity-item').remove();
+                    container.find('input[name^="Activities"]').remove();
+
+                    activities.forEach((activity, index) => {
+                        const activityElement = $(`
+                            <div class="activity-item d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-primary me-2">${index + 1}</span>
+                                    <span class="activity-text">${activity}</span>
+                                </div>
+                                <button type="button" class="btn btn-sm btn-outline-danger remove-activity" data-index="${index}" title="Remove activity">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                                <input type="hidden" name="Activities[${index}]" value="${activity}" />
+                            </div>
+                        `);
+                        container.append(activityElement);
+                    });
+                }
+            }
+
+            function showMessage(message, type) {
+                // Create a toast-like message
+                const alertClass = type === 'success' ? 'alert-success' :
+                                 type === 'warning' ? 'alert-warning' : 'alert-info';
+
+                const messageHtml = `
+                    <div class="alert ${alertClass} alert-dismissible fade show position-fixed"
+                         style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+                        <i class="fas fa-${type === 'success' ? 'check' : type === 'warning' ? 'exclamation-triangle' : 'info'} me-2"></i>
+                        ${message}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+
+                $('body').append(messageHtml);
+
+                // Auto remove after 3 seconds
+                setTimeout(() => {
+                    $('.alert').alert('close');
+                }, 3000);
+            }
+
+            // Event listeners
+            $('#addActivityBtn').on('click', addActivity);
+
+            $('#activityInput').on('keypress', function(e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    addActivity();
+                }
+            });
+
+            $(document).on('click', '.remove-activity', function() {
+                const index = $(this).data('index');
+                removeActivity(index);
+            });
+
+            // Meal option click handlers
+            $('.meal-option').on('click', function() {
+                const checkbox = $(this).find('input[type="checkbox"]');
+                checkbox.prop('checked', !checkbox.prop('checked'));
+                $(this).toggleClass('selected', checkbox.prop('checked'));
+            });
+
+            // Form validation before submit
+            $('form').on('submit', function(e) {
+                var isValid = true;
+
+                // Validate required fields
+                if (!$('#Title').val().trim()) {
+                    $('#Title').addClass('is-invalid');
+                    isValid = false;
+                }
+
+                if (!$('#DayNumber').val() || $('#DayNumber').val() < 1) {
+                    $('#DayNumber').addClass('is-invalid');
+                    isValid = false;
+                }
+
+                if (!$('#Description').val().trim()) {
+                    $('#Description').addClass('is-invalid');
+                    isValid = false;
+                }
+
+                // Validate time range
+                if (!validateTimeRange()) {
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                    showMessage('Please fill in all required fields correctly!', 'warning');
+                    $('html, body').animate({
+                        scrollTop: $('.is-invalid').first().offset().top - 100
+                    }, 500);
+                }
+            });
+
+            // Remove invalid class on input
+            $('.form-control').on('input change', function() {
+                $(this).removeClass('is-invalid');
+            });
+
+            // Initialize
+            renderActivities();
+
+            // Bootstrap tooltip initialization
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+
+        // Reset form function
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form? All entered data will be lost.')) {
+                document.querySelector('form').reset();
+                activities = [];
+                renderActivities();
+                $('.is-invalid').removeClass('is-invalid');
+                $('#timeValidationMessage').hide();
+            }
+        }
+    </script>
+}

@@ -1,0 +1,61 @@
+﻿@model LogInVM
+
+@{
+    ViewData["Title"] = "LogIn";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+<div class="login-container">
+    <h1>Log-In</h1>
+    <hr />
+    <form asp-action="LogIn" method="post">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <!-- Email Field -->
+        <div class="mb-3">
+            <input asp-for="Email" class="form-control" placeholder="Email" required>
+        </div>
+
+        <!-- Password Field with Toggle -->
+        <div class="mb-3 password-toggle">
+            <input asp-for="Password" type="password" class="form-control" id="password" placeholder="Password" required>
+            <span class="toggle-icon" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <!-- Remember Me Checkbox -->
+        <div class="mb-3 form-check">
+            <input asp-for="RememberMe" class="form-check-input">
+            <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">SIGN IN</button>
+    </form>
+
+    <!-- Forgot Password Link -->
+    <div class="forgot-password">
+        <p><a asp-action="ForgetPassword">Forgot Password?</a></p>
+    </div>
+</div>
+
+    <script>
+        // Function to toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-icon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.textContent = '👁️‍🗨️'; // Open eye icon
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.textContent = '👁️'; // Closed eye icon
+            }
+        }
+    </script>
+
+    <!-- Validation Scripts -->
+    @section ValidationScriptSection {
+        <partial name="_ValidationScriptsPartial" />
+    }
+

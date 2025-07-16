@@ -1,0 +1,73 @@
+﻿@model RoleVm
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container-fluid px-4">
+    <!-- Header Section -->
+    <div class="mb-4">
+        <h1 class="h3 text-white fw-bold">
+            <i class="fas fa-edit me-2 text-warning"></i>
+            Edit Role
+        </h1>
+    </div>
+
+    <!-- Edit Form -->
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow bg-dark border-secondary">
+                <div class="card-body p-4">
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                        <!-- Role Name Input -->
+                        <div class="form-group mb-4">
+                            <label class="col-form-label text-white fw-semibold" asp-for="RoleName">
+                                <i class="fas fa-user-tag me-2"></i>
+                                @Html.DisplayNameFor(m => m.RoleName)
+                            </label>
+                            <input asp-for="RoleName" class="form-control form-control-lg bg-dark text-white border-secondary" />
+                            <span asp-validation-for="RoleName" class="text-danger"></span>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-warning btn-lg me-2">
+                                <i class="fas fa-save me-2"></i>
+                                Save
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-arrow-left me-2"></i>
+                                Back To List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    .form-control:focus {
+        background-color: #495057 !important;
+        border-color: #ffc107 !important;
+        color: white !important;
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+    }
+
+    .form-control::placeholder {
+        color: #adb5bd !important;
+    }
+
+    .btn-outline-light:hover {
+        background-color: #f8f9fa;
+        border-color: #f8f9fa;
+        color: #212529;
+    }
+</style>
+
+@section ValidationScriptSection {
+    <partial name="_ValidationScriptsPartial" />
+}

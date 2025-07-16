@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JourneyMate.Presentation", "JourneyMate.Presentation.csproj", "{862E032E-D083-461E-8DEB-DBE471CB84AB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{07E85D07-1C13-4354-B0DA-320051C9AD71} = {07E85D07-1C13-4354-B0DA-320051C9AD71}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JourneyMate.Core", "..\JourneyMate.Core\JourneyMate.Core.csproj", "{07E85D07-1C13-4354-B0DA-320051C9AD71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JourneyMate.Infrastracture", "..\JourneyMate.Infrastracture\JourneyMate.Infrastracture.csproj", "{19E15516-1D23-4B2A-9838-4817DA27BA2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JourneyMate.Application", "..\JourneyMate.Application\JourneyMate.Application.csproj", "{B4478B3C-8834-4AD6-AC4B-A3C9DA2F2A1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "journeyMate.Api", "..\journeyMate.Api\journeyMate.Api.csproj", "{47D26B03-D8EF-4C69-9648-65DBD3DB355D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{862E032E-D083-461E-8DEB-DBE471CB84AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862E032E-D083-461E-8DEB-DBE471CB84AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862E032E-D083-461E-8DEB-DBE471CB84AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862E032E-D083-461E-8DEB-DBE471CB84AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07E85D07-1C13-4354-B0DA-320051C9AD71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07E85D07-1C13-4354-B0DA-320051C9AD71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07E85D07-1C13-4354-B0DA-320051C9AD71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07E85D07-1C13-4354-B0DA-320051C9AD71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19E15516-1D23-4B2A-9838-4817DA27BA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19E15516-1D23-4B2A-9838-4817DA27BA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19E15516-1D23-4B2A-9838-4817DA27BA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19E15516-1D23-4B2A-9838-4817DA27BA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4478B3C-8834-4AD6-AC4B-A3C9DA2F2A1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4478B3C-8834-4AD6-AC4B-A3C9DA2F2A1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4478B3C-8834-4AD6-AC4B-A3C9DA2F2A1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4478B3C-8834-4AD6-AC4B-A3C9DA2F2A1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D26B03-D8EF-4C69-9648-65DBD3DB355D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D26B03-D8EF-4C69-9648-65DBD3DB355D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D26B03-D8EF-4C69-9648-65DBD3DB355D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D26B03-D8EF-4C69-9648-65DBD3DB355D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA29B8C8-D401-495D-B91A-D1AB11FF8ABE}
+	EndGlobalSection
+EndGlobal

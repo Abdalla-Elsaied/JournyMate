@@ -1,0 +1,397 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\JourneyMate.Presentation.bundle.scp.css",
+      "PackagePath": "staticwebassets\\JourneyMate.Presentation.zrrblmngjf.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\CompanyImages\\1.jpg",
+      "PackagePath": "staticwebassets\\CompanyImages\\1.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\CompanyImages\\2.jpg",
+      "PackagePath": "staticwebassets\\CompanyImages\\2.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\13\\3d4a3456-bdc2-4f81-8ded-b334bf8c5455.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\13\\3d4a3456-bdc2-4f81-8ded-b334bf8c5455.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\13\\900e3bc4-a686-4edc-b4c6-4b56e8552662.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\13\\900e3bc4-a686-4edc-b4c6-4b56e8552662.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\13\\a464a935-e604-427d-bb4e-f20cba28fb6c.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\13\\a464a935-e604-427d-bb4e-f20cba28fb6c.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\20\\a3f6ada1-e6b0-49a5-8e39-02a63c036a48.heic",
+      "PackagePath": "staticwebassets\\TravelImages\\20\\a3f6ada1-e6b0-49a5-8e39-02a63c036a48.heic"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\1f4305fd-7209-4d37-8342-7f86abc73b0b.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\1f4305fd-7209-4d37-8342-7f86abc73b0b.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\32a2fcc1-cdb6-41fe-866e-bf637c302dad.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\32a2fcc1-cdb6-41fe-866e-bf637c302dad.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\5941326b-4c27-416b-9fdd-16e9f06ad9d4.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\5941326b-4c27-416b-9fdd-16e9f06ad9d4.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\5f2db8ab-4f26-4aea-b7ee-89d7a1a230d7.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\5f2db8ab-4f26-4aea-b7ee-89d7a1a230d7.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\716201e5-a520-4e2b-8b6b-3ad4a71bd101.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\716201e5-a520-4e2b-8b6b-3ad4a71bd101.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\8d2bb0dd-0ee4-47a8-b12b-d9145c336baa.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\8d2bb0dd-0ee4-47a8-b12b-d9145c336baa.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\a813f6ee-8268-4b3c-8199-45d695e8807a.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\a813f6ee-8268-4b3c-8199-45d695e8807a.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\a9d2dae4-c917-4c81-9e48-180dd9fe0213.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\a9d2dae4-c917-4c81-9e48-180dd9fe0213.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\af0060c7-bfaa-46ae-ae42-3fe63599e895.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\af0060c7-bfaa-46ae-ae42-3fe63599e895.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\d29bc0df-3b08-4467-9d9c-5742e3dd58b4.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\d29bc0df-3b08-4467-9d9c-5742e3dd58b4.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\d790542c-2a04-4e49-bdf8-22141bbdf575.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\d790542c-2a04-4e49-bdf8-22141bbdf575.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\d9a9d458-ef29-45b8-b0e2-ccc13da89f05.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\d9a9d458-ef29-45b8-b0e2-ccc13da89f05.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\dc9fb4f5-d9a6-42ad-8025-9f90dfd3890f.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\dc9fb4f5-d9a6-42ad-8025-9f90dfd3890f.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\e70e8d0f-4fe2-4ca9-a053-8f6d968d2ce6.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\e70e8d0f-4fe2-4ca9-a053-8f6d968d2ce6.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\ece648e0-6591-4a13-a225-420957e87359.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\ece648e0-6591-4a13-a225-420957e87359.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\edd9ed43-61ae-427a-b25e-0bab0e5173ae.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\edd9ed43-61ae-427a-b25e-0bab0e5173ae.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\fb5475d2-acbf-4bce-9451-66ed1eb7486b.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\fb5475d2-acbf-4bce-9451-66ed1eb7486b.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\TravelImages\\ProfileAndCover\\0\\ffddd230-70dd-4533-a061-79d8678ddc80.jpg",
+      "PackagePath": "staticwebassets\\TravelImages\\ProfileAndCover\\0\\ffddd230-70dd-4533-a061-79d8678ddc80.jpg"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\css\\AuthLayout.css",
+      "PackagePath": "staticwebassets\\css\\AuthLayout.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\css\\CompanyStyle.css",
+      "PackagePath": "staticwebassets\\css\\CompanyStyle.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\css\\stylesAdmin.css",
+      "PackagePath": "staticwebassets\\css\\stylesAdmin.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\js\\scripts.js",
+      "PackagePath": "staticwebassets\\js\\scripts.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.js"
+    },
+    {
+      "Id": "D:\\DEPI\\Gproject\\JourneyMate.Presentation\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.JourneyMate.Presentation.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.JourneyMate.Presentation.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.JourneyMate.Presentation.props",
+      "PackagePath": "build\\JourneyMate.Presentation.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.JourneyMate.Presentation.props",
+      "PackagePath": "buildMultiTargeting\\JourneyMate.Presentation.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.JourneyMate.Presentation.props",
+      "PackagePath": "buildTransitive\\JourneyMate.Presentation.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

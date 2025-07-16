@@ -1,0 +1,64 @@
+D:\ProjectTeam\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.deps.json
+D:\ProjectTeam\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.dll
+D:\ProjectTeam\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.pdb
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.AssemblyReference.cache
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfoInputs.cache
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfo.cs
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.CoreCompileInputs.cache
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.dll
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\refint\JourneyMate.Core.dll
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.pdb
+D:\ProjectTeam\JourneyMate.Core\obj\Debug\net9.0\ref\JourneyMate.Core.dll
+D:\Grad Project clean\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.deps.json
+D:\Grad Project clean\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.dll
+D:\Grad Project clean\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.pdb
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.AssemblyReference.cache
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfoInputs.cache
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfo.cs
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.CoreCompileInputs.cache
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.sourcelink.json
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.dll
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\refint\JourneyMate.Core.dll
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.pdb
+D:\Grad Project clean\Gproject\JourneyMate.Core\obj\Debug\net9.0\ref\JourneyMate.Core.dll
+D:\DEPI\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.deps.json
+D:\DEPI\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.dll
+D:\DEPI\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.pdb
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.AssemblyReference.cache
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfoInputs.cache
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfo.cs
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.CoreCompileInputs.cache
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.sourcelink.json
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.dll
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\refint\JourneyMate.Core.dll
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.pdb
+D:\DEPI\Gproject\JourneyMate.Core\obj\Debug\net9.0\ref\JourneyMate.Core.dll
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.deps.json
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.dll
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.pdb
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.AssemblyReference.cache
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfoInputs.cache
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfo.cs
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.CoreCompileInputs.cache
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.sourcelink.json
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.dll
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\refint\JourneyMate.Core.dll
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.pdb
+C:\Users\محمد\Documents\GitHub\Gproject\JourneyMate.Core\obj\Debug\net9.0\ref\JourneyMate.Core.dll
+D:\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.deps.json
+D:\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.dll
+D:\Gproject\JourneyMate.Core\bin\Debug\net9.0\JourneyMate.Core.pdb
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.AssemblyReference.cache
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfoInputs.cache
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.AssemblyInfo.cs
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.csproj.CoreCompileInputs.cache
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.sourcelink.json
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.dll
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\refint\JourneyMate.Core.dll
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\JourneyMate.Core.pdb
+D:\Gproject\JourneyMate.Core\obj\Debug\net9.0\ref\JourneyMate.Core.dll

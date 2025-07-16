@@ -1,0 +1,855 @@
+﻿@model CompanyVm
+@{
+    ViewBag.Title = Model.CompanyName ?? "Company Profile";
+    Layout = "~/Views/Shared/_CompanyLayout.cshtml";
+}
+<div class="main-content">
+    <div class="header">
+        <h1><i class="fas fa-edit"></i> Edit Company Profile</h1>
+        <p>Update your company information and settings</p>
+    </div>
+
+    <div class="form-container">
+        <form asp-controller="CompanyDash" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="validation-summary"></div>
+
+            <!-- Hidden UserId -->
+            <input asp-for="UserId" type="hidden" />
+
+            <!-- Basic Information -->
+            <div class="form-section">
+                <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label asp-for="CompanyName">Company Name *</label>
+                        <input asp-for="CompanyName" class="form-control" placeholder="Enter company name" />
+                        <span asp-validation-for="CompanyName" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email">Email Address</label>
+                        <input readonly asp-for="Email" type="email" class="form-control" placeholder="company@example.com" />
+                        <span asp-validation-for="Email" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber">Phone Number</label>
+                        <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="+1 (555) 123-4567" />
+                        <span asp-validation-for="PhoneNumber" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Website">Website</label>
+                        <input asp-for="Website" type="url" class="form-control" placeholder="https://www.yourcompany.com" />
+                        <span asp-validation-for="Website" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="EstablishedDate">Established Date *</label>
+                        <input asp-for="EstablishedDate" type="date" class="form-control" />
+                        <span asp-validation-for="EstablishedDate" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Current Rating</label>
+                        <div class="rating-display">
+                            <span class="stars">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <i class="fas fa-star @(i <= Model.Rating ? "filled" : "")"></i>
+                                }
+                            </span>
+                            <span>@Model.Rating.ToString("0.0")/5.0</span>
+                        </div>
+                        <input asp-for="Rating" type="hidden" />
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label asp-for="Address">Address</label>
+                        <input asp-for="Address" class="form-control" placeholder="Enter full address" />
+                        <span asp-validation-for="Address" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label asp-for="Slogan">Company Slogan</label>
+                        <input asp-for="Slogan" class="form-control" placeholder="Your inspiring company slogan" />
+                        <span asp-validation-for="Slogan" class="field-validation-error"></span>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label asp-for="Description">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="4" placeholder="Describe your company, services, and what makes you unique..."></textarea>
+                        <span asp-validation-for="Description" class="field-validation-error"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Images -->
+            <div class="form-section">
+                <h3><i class="fas fa-images"></i> Company Images</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label asp-for="ProfileImageFile">Profile Image</label>
+                        <div class="file-input-wrapper">
+                            <input asp-for="ProfileImageFile" type="file" class="file-input" accept="image/*" />
+                            <div class="file-input-display">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Choose profile image...</span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="ProfileImageFile" class="field-validation-error"></span>
+                        @if (!string.IsNullOrEmpty(Model.ProfileImageUrl))
+                        {
+                            <div class="current-image">
+                                <small>Current: @Model.ProfileImageUrl</small>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CoverImageFile">Cover Image</label>
+                        <div class="file-input-wrapper">
+                            <input asp-for="CoverImageFile" type="file" class="file-input" accept="image/*" />
+                            <div class="file-input-display">
+                                <i class="fas fa-user-circle"></i>
+                                <span>Choose cover image...</span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="CoverImageFile" class="field-validation-error"></span>
+                        @if (!string.IsNullOrEmpty(Model.CoverImageUrl))
+                        {
+                            <div class="current-image">
+                                <small>Current: @Model.CoverImageUrl</small>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Working Hours -->
+            <div class="form-section">
+                <h3><i class="fas fa-clock"></i> Working Hours</h3>
+                <div class="working-hours-section">
+                    @{
+                        var days = new string[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+                        var workingHours = Model.WorkingHours ?? new List<WorkingHourViewModel>();
+
+                        // Ensure we have entries for all days
+                        for (int dayIndex = 0; dayIndex < days.Length; dayIndex++)
+                        {
+                            var day = days[dayIndex];
+                            var existingHour = workingHours.FirstOrDefault(w => w.DayOfWeek == day);
+                            if (existingHour == null)
+                            {
+                                workingHours.Add(new WorkingHourViewModel { DayOfWeek = day });
+                            }
+                        }
+                    }
+
+                    @for (int i = 0; i < days.Length; i++)
+                    {
+                        var day = days[i];
+                        var workingHour = workingHours.FirstOrDefault(w => w.DayOfWeek == day) ?? new WorkingHourViewModel { DayOfWeek = day };
+
+                        <div class="working-hour-item">
+                            <input type="hidden" name="WorkingHours[@i].DayOfWeek" value="@day" />
+
+                            <div class="day-header">
+                                <label class="day-label">@day</label>
+                                <div class="closed-toggle">
+                                    <input type="checkbox"
+                                           id="closed_@day"
+                                           class="closed-checkbox"
+                                    @(workingHour.IsClosed ? "checked" : "")
+                                           onchange="toggleDayClosed('@day', this.checked)" />
+                                    <label for="closed_@day" class="closed-label">Closed</label>
+                                </div>
+                            </div>
+
+                            <div class="time-inputs" id="timeInputs_@day" style="@(workingHour.IsClosed ? "display: none;" : "")">
+                                <div class="time-group">
+                                    <label>Open Time</label>
+                                    <input type="time"
+                                           name="WorkingHours[@i].OpenTime"
+                                           value="@(workingHour.OpenTime?.ToString(@"hh\:mm"))"
+                                           class="form-control time-input" />
+                                </div>
+                                <div class="time-separator">to</div>
+                                <div class="time-group">
+                                    <label>Close Time</label>
+                                    <input type="time"
+                                           name="WorkingHours[@i].CloseTime"
+                                           value="@(workingHour.CloseTime?.ToString(@"hh\:mm"))"
+                                           class="form-control time-input" />
+                                </div>
+                            </div>
+
+                            <!-- Hidden inputs for closed days -->
+                            <div id="closedInputs_@day" style="@(workingHour.IsClosed ? "" : "display: none;")">
+                                <input type="hidden" name="WorkingHours[@i].OpenTime" value="" />
+                                <input type="hidden" name="WorkingHours[@i].CloseTime" value="" />
+                            </div>
+                        </div>
+                    }
+
+                    <div class="working-hours-actions">
+                        <button type="button" class="btn btn-outline" onclick="setAllDaysTime()">
+                            <i class="fas fa-copy"></i> Copy Monday to All Days
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="setWeekdaysTime()">
+                            <i class="fas fa-calendar-week"></i> Apply to Weekdays Only
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="form-section">
+                <h3><i class="fab fa-facebook"></i> Social Media Links</h3>
+                <div class="dynamic-section" id="socialMediaSection">
+                    <div id="socialMediaContainer">
+                        @if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
+                        {
+                            @for (int i = 0; i < Model.SocialMediaLinks.Count; i++)
+                            {
+                                <div class="dynamic-item">
+                                    <input type="hidden" name="SocialMediaLinks[@i].Id" value="@Model.SocialMediaLinks[i].Id" />
+                                    <div class="form-group">
+                                        <label>Platform</label>
+                                        <input name="SocialMediaLinks[@i].Platform" value="@Model.SocialMediaLinks[i].Platform" class="form-control" placeholder="e.g., Facebook, Twitter, Instagram" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>URL</label>
+                                        <input name="SocialMediaLinks[@i].Url" value="@Model.SocialMediaLinks[i].Url" type="url" class="form-control" placeholder="https://..." />
+                                    </div>
+                                    <button type="button" class="btn btn-danger" onclick="removeSocialMedia(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <button type="button" class="btn btn-outline" onclick="addSocialMedia()">
+                        <i class="fas fa-plus"></i> Add Social Media Link
+                    </button>
+                </div>
+            </div>
+
+            <!-- Payment Methods -->
+            <div class="form-section">
+                <h3><i class="fas fa-credit-card"></i> Payment Methods</h3>
+                <div class="dynamic-section" id="paymentMethodsSection">
+                    <div id="paymentMethodsContainer">
+                        @if (Model.PaymentMethods != null && Model.PaymentMethods.Any())
+                        {
+                            @for (int i = 0; i < Model.PaymentMethods.Count; i++)
+                            {
+                                <div class="dynamic-item">
+                                    <input type="hidden" name="PaymentMethods[@i].Id" value="@Model.PaymentMethods[i].Id" />
+                                    <div class="form-group">
+                                        <label>Method Name</label>
+                                        <input name="PaymentMethods[@i].MethodName" value="@Model.PaymentMethods[i].MethodName" class="form-control" placeholder="e.g., Credit Card, PayPal, Bank Transfer" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Details</label>
+                                        <input name="PaymentMethods[@i].Details" value="@Model.PaymentMethods[i].Details" class="form-control" placeholder="Additional details or instructions" />
+                                    </div>
+                                    <button type="button" class="btn btn-danger" onclick="removePaymentMethod(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <button type="button" class="btn btn-outline" onclick="addPaymentMethod()">
+                        <i class="fas fa-plus"></i> Add Payment Method
+                    </button>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <a asp-controller="CompanyDash" asp-action="Index" class="btn btn-outline">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .main-content {
+        padding: 30px;
+        background: #f8f9fa;
+        min-height: 100vh;
+    }
+
+    .header {
+        background: white;
+        padding: 20px 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin: 0;
+        }
+
+    .form-container {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .form-section {
+        margin-bottom: 40px;
+    }
+
+        .form-section h3 {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            display: flex;
+            align-items: center;
+        }
+
+            .form-section h3 i {
+                margin-right: 10px;
+                color: #3498db;
+            }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #ecf0f1;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .file-input-wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .file-input {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .file-input-display {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        border: 2px dashed #bdc3c7;
+        border-radius: 10px;
+        background: #f8f9fa;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .file-input-display:hover {
+            border-color: #3498db;
+            background: #e3f2fd;
+        }
+
+        .file-input-display i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+
+    .current-image {
+        margin-top: 5px;
+    }
+
+        .current-image small {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+    /* Working Hours Styles */
+    .working-hours-section {
+        border: 2px solid #ecf0f1;
+        border-radius: 15px;
+        padding: 20px;
+        background: #f8f9fa;
+    }
+
+    .working-hour-item {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .day-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .day-label {
+        font-weight: 600;
+        color: #2c3e50;
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .closed-toggle {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .closed-checkbox {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    .closed-label {
+        color: #e74c3c;
+        font-weight: 500;
+        cursor: pointer;
+        margin: 0;
+    }
+
+    .time-inputs {
+        display: flex;
+        align-items: end;
+        gap: 15px;
+    }
+
+    .time-group {
+        flex: 1;
+    }
+
+        .time-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+            font-size: 12px;
+        }
+
+    .time-input {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .time-separator {
+        color: #7f8c8d;
+        font-weight: 500;
+        margin: 0 10px;
+        align-self: center;
+        margin-top: 20px;
+    }
+
+    .working-hours-actions {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .dynamic-section {
+        border: 2px solid #ecf0f1;
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 10px;
+    }
+
+    .dynamic-item {
+        display: flex;
+        gap: 15px;
+        align-items: end;
+        margin-bottom: 15px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+    }
+
+        .dynamic-item .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+    .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+    .btn-success {
+        background: linear-gradient(135deg, #27ae60, #2ecc71);
+        color: white;
+    }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+        .btn-danger:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+        }
+
+    .btn-outline {
+        background: transparent;
+        border: 2px solid #3498db;
+        color: #3498db;
+    }
+
+        .btn-outline:hover {
+            background: #3498db;
+            color: white;
+        }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: flex-end;
+        margin-top: 40px;
+        padding-top: 30px;
+        border-top: 2px solid #ecf0f1;
+    }
+
+    .rating-display {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border: 2px solid #ecf0f1;
+    }
+
+    .stars {
+        color: #f39c12;
+    }
+
+        .stars .filled {
+            color: #f39c12;
+        }
+
+    .validation-summary {
+        @* background: #fee; *@
+        @* border: 1px solid #fcc; *@
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        color: #c0392b;
+    }
+
+    .field-validation-error {
+        color: #e74c3c;
+        font-size: 12px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    @@media (max-width: 768px) {
+        .form-grid
+
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .dynamic-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .time-inputs {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .time-separator {
+        align-self: flex-start;
+        margin: 0;
+    }
+
+    .working-hours-actions {
+        flex-direction: column;
+    }
+
+    .day-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    }
+
+    
+</style>
+
+
+
+<script>
+      // Working Hours Management
+    function toggleDayClosed(day, isClosed) {
+        const timeInputs = document.getElementById('timeInputs_' + day);
+        const closedInputs = document.getElementById('closedInputs_' + day);
+
+        if (isClosed) {
+            timeInputs.style.display = 'none';
+            closedInputs.style.display = 'block';
+            // Clear the visible inputs
+            timeInputs.querySelectorAll('input[type="time"]').forEach(input => {
+                input.value = '';
+            });
+        } else {
+            timeInputs.style.display = 'flex';
+            closedInputs.style.display = 'none';
+        }
+    }
+
+    function setAllDaysTime() {
+        const mondayOpen = document.querySelector('input[name="WorkingHours[0].OpenTime"]').value;
+        const mondayClose = document.querySelector('input[name="WorkingHours[0].CloseTime"]').value;
+
+        if (!mondayOpen || !mondayClose) {
+            alert('Please set Monday\'s working hours first.');
+            return;
+        }
+
+        for (let i = 1; i < 7; i++) {
+            const openInput = document.querySelector(`input[name="WorkingHours[${i}].OpenTime"]`);
+            const closeInput = document.querySelector(`input[name="WorkingHours[${i}].CloseTime"]`);
+            const checkbox = document.querySelector(`#closed_${['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][i-1]}`);
+
+            if (openInput && closeInput) {
+                openInput.value = mondayOpen;
+                closeInput.value = mondayClose;
+
+                // Uncheck closed if it was checked
+                if (checkbox && checkbox.checked) {
+                    checkbox.checked = false;
+                    toggleDayClosed(['Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][i-1], false);
+                }
+            }
+        }
+    }
+
+    function setWeekdaysTime() {
+        const mondayOpen = document.querySelector('input[name="WorkingHours[0].OpenTime"]').value;
+        const mondayClose = document.querySelector('input[name="WorkingHours[0].CloseTime"]').value;
+
+        if (!mondayOpen || !mondayClose) {
+            alert('Please set Monday\'s working hours first.');
+            return;
+        }
+
+        // Apply to Tuesday through Friday (indices 1-4)
+        for (let i = 1; i <= 4; i++) {
+            const openInput = document.querySelector(`input[name="WorkingHours[${i}].OpenTime"]`);
+            const closeInput = document.querySelector(`input[name="WorkingHours[${i}].CloseTime"]`);
+            const checkbox = document.querySelector(`#closed_${['Tuesday', 'Wednesday', 'Thursday', 'Friday'][i-1]}`);
+
+            if (openInput && closeInput) {
+                openInput.value = mondayOpen;
+                closeInput.value = mondayClose;
+
+                // Uncheck closed if it was checked
+                if (checkbox && checkbox.checked) {
+                    checkbox.checked = false;
+                    toggleDayClosed(['Tuesday', 'Wednesday', 'Thursday', 'Friday'][i-1], false);
+                }
+            }
+        }
+    }
+
+    // Social Media Management
+    let socialMediaIndex = @(Model.SocialMediaLinks?.Count ?? 0);
+
+    function addSocialMedia() {
+        const container = document.getElementById('socialMediaContainer');
+        const div = document.createElement('div');
+        div.className = 'dynamic-item';
+        div.innerHTML = `
+            <div class="form-group">
+                <label>Platform</label>
+                <input name="SocialMediaLinks[${socialMediaIndex}].Platform" class="form-control" placeholder="e.g., Facebook, Twitter, Instagram" />
+            </div>
+            <div class="form-group">
+                <label>URL</label>
+                <input name="SocialMediaLinks[${socialMediaIndex}].Url" type="url" class="form-control" placeholder="https://..." />
+            </div>
+            <button type="button" class="btn btn-danger" onclick="removeSocialMedia(this)">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        container.appendChild(div);
+        socialMediaIndex++;
+    }
+
+    function removeSocialMedia(button) {
+        button.parentElement.remove();
+        reindexSocialMedia();
+    }
+
+    function reindexSocialMedia() {
+        const container = document.getElementById('socialMediaContainer');
+        const items = container.children;
+        for (let i = 0; i < items.length; i++) {
+            const inputs = items[i].querySelectorAll('input[name*="SocialMediaLinks"]');
+            inputs.forEach(input => {
+                const name = input.name;
+                const newName = name.replace(/SocialMediaLinks\[\d+\]/, `SocialMediaLinks[${i}]`);
+                input.name = newName;
+            });
+        }
+        socialMediaIndex = items.length;
+    }
+
+    // Payment Methods Management
+    let paymentMethodIndex = @(Model.PaymentMethods?.Count ?? 0);
+
+    function addPaymentMethod() {
+        const container = document.getElementById('paymentMethodsContainer');
+        const div = document.createElement('div');
+        div.className = 'dynamic-item';
+        div.innerHTML = `
+            <div class="form-group">
+                <label>Method Name</label>
+                <input name="PaymentMethods[${paymentMethodIndex}].MethodName" class="form-control" placeholder="e.g., Credit Card, PayPal, Bank Transfer" />
+            </div>
+            <div class="form-group">
+                <label>Details</label>
+                <input name="PaymentMethods[${paymentMethodIndex}].Details" class="form-control" placeholder="Additional details or instructions" />
+            </div>
+            <button type="button" class="btn btn-danger" onclick="removePaymentMethod(this)">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        container.appendChild(div);
+        paymentMethodIndex++;
+    }
+
+    function removePaymentMethod(button) {
+        button.parentElement.remove();
+        reindexPaymentMethods();
+    }
+
+    function reindexPaymentMethods() {
+        const container = document.getElementById('paymentMethodsContainer');
+        const items = container.children;
+        for (let i = 0; i < items.length; i++) {
+            const inputs = items[i].querySelectorAll('input[name*="PaymentMethods"]');
+            inputs.forEach(input => {
+                const name = input.name;
+                const newName = name.replace(/PaymentMethods\[\d+\]/, `PaymentMethods[${i}]`);
+                input.name = newName;
+            });
+        }
+        paymentMethodIndex = items.length;
+    }
+
+    // File input display update
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.file-input').forEach(input => {
+            input.addEventListener('change', function() {
+                const display = this.nextElementSibling.querySelector('span');
+                if (this.files.length > 0) {
+                    display.textContent = this.files[0].name;
+                } else {
+                    display.textContent = 'Choose profile image...';
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,801 @@
+﻿@using JourneyMate.Core.Models.Company_Aggregation
+
+@model IEnumerable<Travel>
+
+
+@{
+    ViewData["Title"] = "Travel Listings";
+    Layout = "~/Views/Shared/_CompanyLayout.cshtml";
+    var travels = Model?.ToList() ?? new List<Travel>();
+    var totalTravels = travels.Count;
+    var pageSize = 2;
+    var currentPage = Context.Request.Query["page"].ToString() != "" ? int.Parse(Context.Request.Query["page"].ToString()) : 1;
+    var totalPages = (int)Math.Ceiling((double)totalTravels / pageSize);
+    var startIndex = (currentPage - 1) * pageSize;
+    var pagedTravels = travels.Skip(startIndex).Take(pageSize).ToList();
+}
+
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --light-bg: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container-fluid {
+            padding: 2rem;
+        }
+
+        .header-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .page-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .page-subtitle {
+            color: #6c757d;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .filters-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            border-radius: 25px;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .filter-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 0.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+        .travel-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            position: relative;
+            width: 100%;
+        }
+
+        .travels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .travel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .travel-header {
+            position: relative;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .travel-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .travel-subtitle {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .travel-body {
+            padding: 1.5rem;
+        }
+
+        .image-carousel-container {
+            position: relative;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            background: #f8f9fa;
+        }
+
+        .image-carousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .carousel-image.active {
+            opacity: 1;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 5px;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .indicator.active {
+            background: white;
+        }
+
+        .travel-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .info-icon {
+            color: var(--secondary-color);
+            width: 16px;
+        }
+
+        .price-section {
+            background: linear-gradient(135deg, var(--success-color), #2ecc71);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .price-current {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .price-discount {
+            background: var(--warning-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .amenities-section, .includes-section {
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .amenities-list, .includes-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .amenity-tag, .include-tag {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .include-tag {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success-color);
+        }
+
+        .actions-section {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-custom {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-edit {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-view {
+                background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+                color: white;
+            }
+        .btn-edit:hover {
+            background: #2980b9;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-view:hover {
+        background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+        .btn-itinerary {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-itinerary:hover {
+            background: #e67e22;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-view-itinerary {
+            background: #9b59b6;
+            color: white;
+        }
+
+        .btn-view-itinerary:hover {
+            background: #8e44ad;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .pagination-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .pagination-custom {
+            display: inline-flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .page-link-custom {
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .page-link-custom:hover, .page-link-custom.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .page-link-custom.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .special-offer {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0 0 10px 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(-2deg);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        @@media (max-width: 768px) {
+            .travels-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .travel-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-section {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .action-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .filters-section .row > div {
+                margin-bottom: 1rem;
+            }
+        }
+
+        @@media (max-width: 1200px) {
+            .travels-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+        }
+    </style>
+    <div class="container-fluid">
+        <!-- Header Section -->
+        <div class="header-section">
+            <h1 class="page-title">
+                <i class="fas fa-plane-departure me-3"></i>
+                Travel Adventures
+            </h1>
+            <p class="page-subtitle">Discover amazing destinations and create unforgettable memories</p>
+        </div>
+
+        <!-- Travel Cards -->
+        <div class="travels-grid">
+            @if (pagedTravels.Any())
+            {
+                @foreach (var travel in pagedTravels)
+                {
+                    <div class="travel-card" data-travel-id="@travel.Id">
+                        @if (!string.IsNullOrEmpty(travel.SpecialOffer))
+                        {
+                            <div class="special-offer">@travel.SpecialOffer</div>
+                        }
+                        
+                        <div class="travel-header">
+                            <a asp-controller="Travel" asp-action="Delete" asp-route-id="@travel.Id" 
+                               class="delete-btn">
+                                <i class="fas fa-times"></i>
+                            </a>
+                            <h3 class="travel-title">@travel.Title</h3>
+                            <p class="travel-subtitle">
+                                <i class="fas fa-map-marker-alt me-2"></i>
+                                @travel.DeparturePoint → @travel.DestinationCity
+                            </p>
+                        </div>
+
+                        <div class="travel-body">
+                            <!-- Image Carousel -->
+                            @if (travel.Images?.Any() == true)
+                            {
+                                <div class="image-carousel-container">
+                                    <div class="image-carousel" data-travel-id="@travel.Id">
+                                        @for (int i = 0; i < travel.Images.Count; i++)
+                                        {
+                                            <img src="@travel.Images.ElementAt(i).ImageUrl" 
+                                                 alt="Travel Image @(i + 1)" 
+                                                 class="carousel-image @(i == 0 ? "active" : "")">
+                                        }
+                                        @if (travel.Images.Count > 1)
+                                        {
+                                            <div class="carousel-indicators">
+                                                @for (int i = 0; i < travel.Images.Count; i++)
+                                                {
+                                                    <div class="indicator @(i == 0 ? "active" : "")" 
+                                                         data-index="@i"></div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            else if (!string.IsNullOrEmpty(travel.CoverImageUrl))
+                            {
+                                <div class="image-carousel-container">
+                                    <img src="@travel.CoverImageUrl" alt="@travel.Title" class="carousel-image active">
+                                </div>
+                            }
+
+                            <!-- Travel Info Grid -->
+                            <div class="travel-info">
+                                <div class="info-item">
+                                    <i class="fas fa-calendar info-icon"></i>
+                                    <span>@travel.StartDate.ToString("MMM dd") - @travel.EndDate.ToString("MMM dd, yyyy")</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-users info-icon"></i>
+                                    <span>@travel.AvailableSeats seats available</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-route info-icon"></i>
+                                    <span>@travel.TransportationType</span>
+                                </div>
+                                <div class="info-item">
+                                    <i class="fas fa-clock info-icon"></i>
+                                    <span>@((travel.EndDate - travel.StartDate).Days) days</span>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            @if (!string.IsNullOrEmpty(travel.Description))
+                            {
+                                <p class="mb-3 text-muted">@travel.Description</p>
+                            }
+
+                            <!-- Price Section -->
+                            <div class="price-section">
+                                <div class="d-flex justify-content-center align-items-center gap-3">
+                                    @if (travel.SaleDiscount > 0)
+                                    {
+                                        <span class="price-original">$@travel.BaseCost.ToString("F2")</span>
+                                        <span class="price-discount">@travel.SaleDiscount% OFF</span>
+                                    }
+                                    <span class="price-current">$@travel.Price.ToString("F2")</span>
+                                </div>
+                            </div>
+
+                            <!-- Amenities -->
+                            @if (travel.Amenities?.Any() == true)
+                            {
+                                <div class="amenities-section">
+                                    <div class="section-title">
+                                        <i class="fas fa-star me-2"></i>Amenities
+                                    </div>
+                                    <div class="amenities-list">
+                                        @foreach (var amenity in travel.Amenities.Take(6))
+                                        {
+                                            <span class="amenity-tag">@amenity</span>
+                                        }
+                                        @if (travel.Amenities.Count > 6)
+                                        {
+                                            <span class="amenity-tag">+@(travel.Amenities.Count - 6) more</span>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Included Items -->
+                            @if (travel.Included?.Any() == true)
+                            {
+                                <div class="includes-section">
+                                    <div class="section-title">
+                                        <i class="fas fa-check-circle me-2"></i>What's Included
+                                    </div>
+                                    <div class="includes-list">
+                                        @foreach (var item in travel.Included.Take(4))
+                                        {
+                                            <span class="include-tag">@item</span>
+                                        }
+                                        @if (travel.Included.Count > 4)
+                                        {
+                                            <span class="include-tag">+@(travel.Included.Count - 4) more</span>
+                                        }
+                                    </div>
+                                </div>
+                            }
+
+                            <!-- Action Buttons -->
+                            <div class="actions-section">
+                                <div class="action-buttons">
+                                    <a asp-controller="Travel" asp-action="Update" asp-route-id="@travel.Id" 
+                                           class="btn-custom btn-edit">
+                                            <i class="fas fa-edit me-1"></i>Edit
+                                    </a>
+                                    <a asp-controller="Travel" asp-action="Details" asp-route-id="@travel.Id"
+                                           class="btn-custom btn-view">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a asp-controller="Itinerary" asp-action="CreateItinerary" asp-route-id="@travel.Id" 
+                                       class="btn-custom btn-itinerary">
+                                            <i class="fas fa-plus me-1"></i>Add Itinerary
+                                     </a>
+                                    <a asp-controller="Itinerary" asp-action="List" asp-route-id="@travel.Id"
+                                             class="btn-custom btn-view-itinerary">
+                                        <i class="fas fa-list me-1"></i>View Itinerary
+                                    </a>
+                                </div>
+                                <div class="text-muted small">
+                                    <i class="fas fa-calendar-plus me-1"></i>
+                                    Created @travel.CreationDate.ToString("MMM dd, yyyy")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="travel-card" style="grid-column: 1 / -1;">
+                    <div class="no-results">
+                        <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+                        <h4>No travels found</h4>
+                        <p>Try adjusting your search criteria or filters.</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (totalPages > 1)
+        {
+            <div class="pagination-section">
+                <div class="pagination-custom">
+                    <a href="?page=@(currentPage - 1)@(string.IsNullOrEmpty(ViewBag.SearchTerm?.ToString()) ? "" : "&search=" + ViewBag.SearchTerm)" 
+                       class="page-link-custom @(currentPage <= 1 ? "disabled" : "")">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    
+                    @for (int i = Math.Max(1, currentPage - 2); i <= Math.Min(totalPages, currentPage + 2); i++)
+                    {
+                        <a href="?page=@i@(string.IsNullOrEmpty(ViewBag.SearchTerm?.ToString()) ? "" : "&search=" + ViewBag.SearchTerm)" 
+                           class="page-link-custom @(i == currentPage ? "active" : "")">
+                            @i
+                        </a>
+                    }
+                    
+                    <a href="?page=@(currentPage + 1)@(string.IsNullOrEmpty(ViewBag.SearchTerm?.ToString()) ? "" : "&search=" + ViewBag.SearchTerm)" 
+                       class="page-link-custom @(currentPage >= totalPages ? "disabled" : "")">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                <div class="mt-3 text-muted">
+                    Showing @Math.Min(startIndex + 1, totalTravels) - @Math.Min(startIndex + pageSize, totalTravels) of @totalTravels travels
+                </div>
+            </div>
+        }
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        class TravelCarousel {
+            constructor(container) {
+                this.container = container;
+                this.images = container.querySelectorAll('.carousel-image');
+                this.indicators = container.querySelectorAll('.indicator');
+                this.currentIndex = 0;
+                this.intervalId = null;
+                
+                this.init();
+            }
+            
+            init() {
+                if (this.images.length <= 1) return;
+                
+                // Add click events to indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => this.goToSlide(index));
+                });
+                
+                // Start auto-play
+                this.startAutoPlay();
+                
+                // Pause on hover
+                this.container.addEventListener('mouseenter', () => this.stopAutoPlay());
+                this.container.addEventListener('mouseleave', () => this.startAutoPlay());
+            }
+            
+            goToSlide(index) {
+                // Remove active class from current image and indicator
+                this.images[this.currentIndex].classList.remove('active');
+                this.indicators[this.currentIndex]?.classList.remove('active');
+                
+                // Set new current index
+                this.currentIndex = index;
+                
+                // Add active class to new image and indicator
+                this.images[this.currentIndex].classList.add('active');
+                this.indicators[this.currentIndex]?.classList.add('active');
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentIndex + 1) % this.images.length;
+                this.goToSlide(nextIndex);
+            }
+            
+            startAutoPlay() {
+                this.stopAutoPlay();
+                this.intervalId = setInterval(() => this.nextSlide(), 5000);
+            }
+            
+            stopAutoPlay() {
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            }
+        }
+        
+        // Initialize carousels
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousels = document.querySelectorAll('.image-carousel');
+            carousels.forEach(carousel => new TravelCarousel(carousel));
+            
+            // Real-time search
+            const searchInput = document.getElementById('searchInput');
+            let searchTimeout;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    document.getElementById('filterForm').submit();
+                }, 500);
+            });
+            
+            // Auto-submit on filter change
+            const filterSelects = document.querySelectorAll('.filter-select');
+            filterSelects.forEach(select => {
+                select.addEventListener('change', () => {
+                    document.getElementById('filterForm').submit();
+                });
+            });
+            
+            // Smooth scroll animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all travel cards
+            document.querySelectorAll('.travel-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+        
+        // Add loading states for better UX
+        document.getElementById('filterForm').addEventListener('submit', function() {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Filtering...';
+            submitBtn.disabled = true;
+            
+            // Re-enable after a short delay (in case form submission fails)
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 3000);
+        });
+    </script>
+

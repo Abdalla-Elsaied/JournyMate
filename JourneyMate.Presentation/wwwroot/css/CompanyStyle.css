@@ -1,0 +1,317 @@
+﻿
+/* Modern Travel Dashboard Color Scheme */
+:root {
+    --primary-navy: #1e3a5f;
+    --secondary-teal: #2c5f5d;
+    --accent-orange: #d67e3b;
+    --warm-blue: #4a7ba7;
+    --light-teal: #5d8a87;
+    --golden-accent: #c5962f;
+    --text-light: #ffffff;
+    --text-muted: #b8d4e3;
+    --hover-blue: #6391c4;
+    --gradient-start: #1e3a5f;
+    --gradient-end: #2c5f5d;
+}
+
+/* Top Navigation Bar */
+.navbar.bg-dark {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important;
+    border-bottom: 3px solid var(--accent-orange);
+    box-shadow: 0 2px 8px rgba(30, 58, 95, 0.3);
+}
+
+.navbar-brand {
+    color: var(--text-light) !important;
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+    .navbar-brand:hover {
+        color: var(--golden-accent) !important;
+        transition: color 0.3s ease;
+    }
+
+/* Sidebar Navigation */
+.sb-sidenav-dark {
+    background: linear-gradient(180deg, var(--primary-navy), var(--secondary-teal)) !important;
+    border-right: 3px solid var(--accent-orange);
+    box-shadow: 2px 0 8px rgba(30, 58, 95, 0.2);
+}
+
+    .sb-sidenav-dark .sb-sidenav-menu-heading {
+        color: var(--golden-accent) !important;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 2px solid var(--accent-orange);
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+    }
+
+    .sb-sidenav-dark .nav-link {
+        color: var(--text-muted) !important;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        margin: 2px 8px;
+        font-weight: 500;
+    }
+
+        .sb-sidenav-dark .nav-link:hover {
+            background: linear-gradient(135deg, var(--warm-blue), var(--light-teal)) !important;
+            color: var(--text-light) !important;
+            transform: translateX(5px);
+            box-shadow: 0 3px 12px rgba(74, 123, 167, 0.4);
+        }
+
+        .sb-sidenav-dark .nav-link.active {
+            background: linear-gradient(135deg, var(--accent-orange), var(--golden-accent)) !important;
+            color: var(--text-light) !important;
+            box-shadow: 0 3px 12px rgba(214, 126, 59, 0.4);
+        }
+
+.sb-nav-link-icon {
+    color: var(--golden-accent) !important;
+    transition: color 0.3s ease;
+}
+
+.sb-sidenav-dark .nav-link:hover .sb-nav-link-icon {
+    color: var(--text-light) !important;
+}
+
+/* Top Navigation Buttons and Dropdowns */
+.btn-link {
+    color: var(--text-light) !important;
+    transition: color 0.3s ease;
+}
+
+    .btn-link:hover {
+        color: var(--golden-accent) !important;
+    }
+
+.navbar-nav .nav-link {
+    color: var(--text-light) !important;
+    transition: all 0.3s ease;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: var(--golden-accent) !important;
+        background: rgba(255,255,255,0.1);
+        border-radius: 6px;
+    }
+
+.dropdown-menu {
+    background: var(--primary-navy);
+    border: 2px solid var(--accent-orange);
+    box-shadow: 0 8px 25px rgba(30, 58, 95, 0.3);
+}
+
+.dropdown-item {
+    color: var(--text-muted) !important;
+    transition: all 0.3s ease;
+}
+
+    .dropdown-item:hover {
+        background: linear-gradient(135deg, var(--warm-blue), var(--light-teal)) !important;
+        color: var(--text-light) !important;
+    }
+
+.dropdown-divider {
+    border-color: var(--accent-orange);
+}
+
+/* Content Area Enhancements */
+#layoutSidenav_content {
+    background: linear-gradient(135deg, #f8fdff, #e8f4f8);
+    min-height: 100vh;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 10px 25px 25px 25px;
+    box-shadow: 0 4px 20px rgba(30, 58, 95, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sb-sidenav-dark .nav-link:hover {
+        transform: none;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+}
+
+/* Animation for sidebar toggle */
+#layoutSidenav_nav {
+    transition: margin-left 0.3s ease;
+}
+
+/* Additional styling for better visual hierarchy */
+.sb-sidenav-dark {
+    background-attachment: fixed;
+}
+
+/* Custom scrollbar for sidebar */
+.sb-sidenav::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sb-sidenav::-webkit-scrollbar-track {
+    background: var(--primary-navy);
+}
+
+.sb-sidenav::-webkit-scrollbar-thumb {
+    background: var(--accent-orange);
+    border-radius: 3px;
+}
+
+    .sb-sidenav::-webkit-scrollbar-thumb:hover {
+        background: var(--golden-accent);
+    }
+
+/*home page*/
+.company-profile {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.cover-section {
+    height: 300px;
+    margin-bottom: 60px;
+}
+
+.cover-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.cover-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+}
+
+.profile-image-container {
+    position: absolute;
+    bottom: -50px;
+    left: 30px;
+    z-index: 10;
+}
+
+.profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    object-fit: cover;
+    background-color: #fff;
+}
+
+.company-name {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.company-slogan {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.rating-stars {
+    font-size: 1.2rem;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 2px solid #e9ecef;
+    font-weight: 600;
+}
+
+.contact-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+    .contact-item:last-child {
+        border-bottom: none;
+    }
+
+.social-links .btn {
+    transition: all 0.3s ease;
+}
+
+    .social-links .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+.payment-method {
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease;
+}
+
+    .payment-method:hover {
+        background-color: #e9ecef;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .company-name {
+        font-size: 2rem;
+    }
+
+    .profile-image-container {
+        left: 15px;
+    }
+
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+
+    .cover-section {
+        height: 250px;
+        margin-bottom: 50px;
+    }
+
+    .rating-section {
+        margin-top: 1rem;
+        text-align: left !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .company-name {
+        font-size: 1.8rem;
+    }
+
+    .company-slogan {
+        font-size: 1rem;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}

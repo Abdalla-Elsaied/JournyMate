@@ -1,0 +1,951 @@
+﻿@model TravelVm
+@{
+    ViewData["Title"] = "Edit Travel";
+    Layout = "_CompanyLayout";
+}
+<style>
+    .map-controls {
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+    }
+
+    .btn.active {
+        background-color: #0d6efd !important;
+        color: white !important;
+    }
+
+    #amenitiesTags .badge {
+        font-size: 0.9em;
+        padding: 0.5em 0.7em;
+    }
+
+    .bg-success {
+        font-size: 0.9em;
+        padding: 0.5em 0.7em;
+    }
+
+    .bg-danger {
+        font-size: 0.9em;
+        padding: 0.5em 0.7em;
+    }
+
+    .text-danger {
+        font-size: 0.875em;
+    }
+
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-header {
+        border-bottom: 2px solid rgba(0,0,0,.125);
+    }
+
+    .border-bottom {
+        border-bottom: 2px solid #e9ecef !important;
+    }
+
+    .custom-marker {
+        background: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #map {
+        cursor: grab;
+    }
+
+    #map:active {
+        cursor: grabbing;
+    }
+
+    .leaflet-popup-content-wrapper {
+        border-radius: 8px;
+    }
+
+    .current-image {
+        position: relative;
+        display: inline-block;
+        margin: 5px;
+    }
+
+    .current-image img {
+        max-width: 200px;
+        max-height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .remove-image-btn {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #dc3545;
+        color: white;
+        border: none;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .edit-mode-indicator {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="container-fluid px-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0"><i class="fas fa-edit me-2"></i>Edit Travel: @Model.Title</h4>
+                        <div class="edit-mode-indicator">
+                            <i class="fas fa-pencil-alt"></i>
+                            Edit Mode
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Travel" asp-action="Update" method="post" enctype="multipart/form-data" id="editTravelForm">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @Html.AntiForgeryToken()
+
+                        <!-- Hidden Fields -->
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CreationDate" />
+                        <input type="hidden" asp-for="Price" id="calculatedPrice" />
+                        <input type="hidden" asp-for="DeparturePointLat" id="departureLatInput" />
+                        <input type="hidden" asp-for="DeparturePointLng" id="departureLngInput" />
+                        <input type="hidden" asp-for="DestinationCityLat" id="destinationLatInput" />
+                        <input type="hidden" asp-for="DestinationCityLng" id="destinationLngInput" />
+                        <input type="hidden" asp-for="CompanyId" />
+                        <input type="hidden" asp-for="CoverImageUrl" id="currentCoverImageUrl" />
+                        <input type="hidden" asp-for="ProfileImageUrl" id="currentProfileImageUrl" />
+
+                        <!-- Basic Information Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2"><i class="fas fa-info-circle me-2"></i>Basic Information</h5>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="Title" class="form-label">Travel Title <span class="text-danger">*</span></label>
+                                <input asp-for="Title" class="form-control" placeholder="Enter travel title" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                  
+                            <div class="col-md-6">
+                                <label asp-for="CategoryId" class="form-label">Category <span class="text-danger">*</span></label>
+                                <select asp-for="CategoryId" asp-items="Model.Categories" class="form-select">
+                                    <option value="">-- Select Category --</option>
+                                </select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label asp-for="Description" class="form-label">Description <span class="text-danger">*</span></label>
+                                <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter detailed description of the travel"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Cover and Profile Images Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2"><i class="fas fa-image me-2"></i>Travel Images</h5>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="IFormFileCoverImage" class="form-label">Cover Image</label>
+                                
+                                <!-- Current Cover Image -->
+                                @if (!string.IsNullOrEmpty(Model.CoverImageUrl))
+                                {
+                                    <div class="current-image-container mb-2">
+                                        <label class="form-label text-muted small">Current Cover Image:</label>
+                                        <div class="current-image">
+                                            <img src="@Model.CoverImageUrl" alt="Current Cover" class="img-thumbnail" style="max-width: 300px; max-height: 200px;" />
+                                            <button type="button" class="remove-image-btn" onclick="removeCoverImage()">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
+                                
+                                <input asp-for="IFormFileCoverImage" type="file" class="form-control" accept="image/*" id="coverImageInput" />
+                                <small class="text-muted">Upload new image to replace current cover image</small>
+                                <div id="coverImagePreview" class="mt-2"></div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label asp-for="IFormFileProfileImage" class="form-label">Profile Image</label>
+                                
+                                <!-- Current Profile Image -->
+                                @if (!string.IsNullOrEmpty(Model.ProfileImageUrl))
+                                {
+                                    <div class="current-image-container mb-2">
+                                        <label class="form-label text-muted small">Current Profile Image:</label>
+                                        <div class="current-image">
+                                            <img src="@Model.ProfileImageUrl" alt="Current Profile" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+                                            <button type="button" class="remove-image-btn" onclick="removeProfileImage()">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
+                                
+                                <input asp-for="IFormFileProfileImage" type="file" class="form-control" accept="image/*" id="profileImageInput" />
+                                <small class="text-muted">Upload new image to replace current profile image</small>
+                                <div id="profileImagePreview" class="mt-2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2"><i class="fas fa-dollar-sign me-2"></i>Pricing Information</h5>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label asp-for="BaseCost" class="form-label">Base Cost <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input asp-for="BaseCost" class="form-control" type="number" step="0.01" min="0" id="baseCostInput" />
+                                </div>
+                                <span asp-validation-for="BaseCost" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="SaleDiscount" class="form-label">Sale Discount (%)</label>
+                                <div class="input-group">
+                                    <input asp-for="SaleDiscount" class="form-control" type="number" step="0.01" min="0" max="100" id="saleDiscountInput" />
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <span asp-validation-for="SaleDiscount" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Final Price</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input class="form-control" type="text" readonly id="priceDisplay" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date and Capacity Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2"><i class="fas fa-calendar-alt me-2"></i>Schedule & Capacity</h5>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label asp-for="StartDate" class="form-label">Start Date <span class="text-danger">*</span></label>
+                                <input asp-for="StartDate" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="EndDate" class="form-label">End Date <span class="text-danger">*</span></label>
+                                <input asp-for="EndDate" class="form-control" type="datetime-local" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="AvailableSeats" class="form-label">Available Seats <span class="text-danger">*</span></label>
+                                <input asp-for="AvailableSeats" class="form-control" type="number" min="1" />
+                                <span asp-validation-for="AvailableSeats" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Location Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2"><i class="fas fa-map-marker-alt me-2"></i>Location Information</h5>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label asp-for="DeparturePoint" class="form-label">Departure Point <span class="text-danger">*</span></label>
+                                <input asp-for="DeparturePoint" class="form-control" id="departurePointInput" placeholder="Click on map to select departure point" readonly />
+                                <span asp-validation-for="DeparturePoint" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="DestinationCity" class="form-label">Destination City <span class="text-danger">*</span></label>
+                                <input asp-for="DestinationCity" class="form-control" id="destinationCityInput" placeholder="Click on map to select destination" readonly />
+                                <span asp-validation-for="DestinationCity" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Leaflet Map -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label class="form-label">Update Locations on Map</label>
+                                <div class="map-controls mb-2">
+                                    <button type="button" class="btn btn-outline-primary btn-sm" id="setDepartureBtn">
+                                        <i class="fas fa-map-pin me-1"></i>Update Departure Point
+                                    </button>
+                                    <button type="button" class="btn btn-outline-success btn-sm" id="setDestinationBtn">
+                                        <i class="fas fa-flag-checkered me-1"></i>Update Destination
+                                    </button>
+                                    <button type="button" class="btn btn-outline-info btn-sm" id="clearMarkersBtn">
+                                        <i class="fas fa-eraser me-1"></i>Clear All
+                                    </button>
+                                    <span class="text-muted ms-3">Click a button above, then click on the map to update location</span>
+                                </div>
+                                <div id="map" style="height: 400px; width: 100%; border: 2px solid #e9ecef; border-radius: 8px;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Transportation Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2"><i class="fas fa-bus me-2"></i>Transportation & Amenities</h5>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label asp-for="TransportationType" class="form-label">Transportation Type <span class="text-danger">*</span></label>
+                                <select asp-for="TransportationType" class="form-select">
+                                    <option value="">Select Transportation Type</option>
+                                    <option value="Bus">Bus</option>
+                                    <option value="Train">Train</option>
+                                    <option value="Flight">Flight</option>
+                                </select>
+                                <span asp-validation-for="TransportationType" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Amenities</label>
+                                <input type="text" class="form-control" id="amenitiesInput" placeholder="Enter amenities separated by commas" />
+                                <div id="amenitiesTags" class="mt-2"></div>
+                                <small class="text-muted">Press Enter or comma to add amenities</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">What's Included</label>
+                                <input type="text" class="form-control" id="includedInput" placeholder="Enter what's included" />
+                                <div id="includedTags" class="mt-2"></div>
+                                <small class="text-muted">Press Enter or comma to add included items</small>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">What's Not Included</label>
+                                <input type="text" class="form-control" id="notIncludedInput" placeholder="Enter what's not included" />
+                                <div id="notIncludedTags" class="mt-2"></div>
+                                <small class="text-muted">Press Enter or comma to add not included items</small>
+                            </div>
+                        </div>
+
+                        <!-- Gallery Images Section -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h5 class="text-primary border-bottom pb-2"><i class="fas fa-images me-2"></i>Gallery Images</h5>
+                            </div>
+                        </div>
+
+                        <!-- Current Gallery Images -->
+                      
+                        @if (Model.Images != null && Model.Images.Any())
+                        {
+                            <div class="row mb-3">
+                                <div class="col-12">
+                                    <label class="form-label text-muted small">Current Gallery Images:</label>
+                                    <div class="image-gallery" id="currentGallery">
+                                        @for (int i = 0; i < Model.Images.Count; i++)
+                                        {
+                                            <div class="current-image" data-image-id="@i" data-image-db-id="@Model.Images[i].Id">
+                                                <img src="@Model.Images[i].ImageUrl" alt="Gallery Image" />
+                                                <button type="button" class="remove-image-btn" onclick="removeGalleryImage(@i)">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                                <!-- Keep track of the original image data -->
+                                                <input type="hidden" name="Images[@i].ImageUrl" value="@Model.Images[i].ImageUrl" class="original-image-url" />
+                                                <input type="hidden" name="Images[@i].Id" value="@Model.Images[i].Id" class="original-image-id" />
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label class="form-label">Add New Gallery Images</label>
+                                <input type="file" class="form-control" id="imageFiles" name="IFormFileImages" multiple accept="image/*" />
+                                <small class="text-muted">Select multiple images to add to your travel package gallery</small>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <div id="imagePreview" class="row g-3"></div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="row">
+                            <div class="col-12">
+                                <hr />
+                                <div class="d-flex justify-content-between">
+                                    <a asp-action="Index" class="btn btn-secondary">
+                                        <i class="fas fa-arrow-left me-1"></i>Back to List
+                                    </a>
+                                    <div class="d-flex gap-2">
+                                        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info">
+                                            <i class="fas fa-eye me-1"></i>View Details
+                                        </a>
+                                        <button type="submit" class="btn btn-warning btn-lg">
+                                            <i class="fas fa-save me-1"></i>Update Travel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Price calculation
+            function calculatePrice() {
+                const baseCost = parseFloat($('#baseCostInput').val()) || 0;
+                const discount = parseFloat($('#saleDiscountInput').val()) || 0;
+                const finalPrice = baseCost - (baseCost * discount / 100);
+
+                $('#calculatedPrice').val(finalPrice.toFixed(2));
+                $('#priceDisplay').val(finalPrice.toFixed(2));
+            }
+
+            // Initial price calculation with existing values
+            calculatePrice();
+            $('#baseCostInput, #saleDiscountInput').on('input', calculatePrice);
+
+            // Initialize Leaflet Map
+            let map;
+            let departureMarker = null;
+            let destinationMarker = null;
+            let currentMode = null; // 'departure' or 'destination'
+
+            // Custom icons for markers
+            const departureIcon = L.divIcon({
+                className: 'custom-marker departure-marker',
+                html: '<i class="fas fa-map-pin" style="color: #0d6efd; font-size: 20px;"></i>',
+                iconSize: [20, 20],
+                iconAnchor: [10, 20]
+            });
+
+            const destinationIcon = L.divIcon({
+                className: 'custom-marker destination-marker',
+                html: '<i class="fas fa-flag-checkered" style="color: #198754; font-size: 20px;"></i>',
+                iconSize: [20, 20],
+                iconAnchor: [10, 20]
+            });
+
+            function initMap() {
+                // Get existing coordinates from hidden inputs
+                const departureLat = $('#departureLatInput').val();
+                const departureLng = $('#departureLngInput').val();
+                const destinationLat = $('#destinationLatInput').val();
+                const destinationLng = $('#destinationLngInput').val();
+
+                // Initialize map - center on existing locations if available
+                let centerLat = 26.8206; // Default Egypt center
+                let centerLng = 30.8025;
+                let zoom = 6;
+
+                if (departureLat && departureLng) {
+                    centerLat = parseFloat(departureLat);
+                    centerLng = parseFloat(departureLng);
+                    zoom = 10;
+                }
+
+                map = L.map('map').setView([centerLat, centerLng], zoom);
+
+                // Add OpenStreetMap tiles
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    maxZoom: 19
+                }).addTo(map);
+
+                // Add existing markers if coordinates exist
+                if (departureLat && departureLng) {
+                    departureMarker = L.marker([parseFloat(departureLat), parseFloat(departureLng)], {
+                        icon: departureIcon,
+                        title: 'Departure Point'
+                    }).addTo(map);
+                }
+
+                if (destinationLat && destinationLng) {
+                    destinationMarker = L.marker([parseFloat(destinationLat), parseFloat(destinationLng)], {
+                        icon: destinationIcon,
+                        title: 'Destination'
+                    }).addTo(map);
+                }
+
+                // Fit map to show both markers if they exist
+                if (departureMarker && destinationMarker) {
+                    const group = new L.featureGroup([departureMarker, destinationMarker]);
+                    map.fitBounds(group.getBounds().pad(0.1));
+                }
+
+                // Add click event listener
+                map.on('click', function(e) {
+                    if (currentMode === 'departure') {
+                        setDeparturePoint(e.latlng);
+                    } else if (currentMode === 'destination') {
+                        setDestinationPoint(e.latlng);
+                    }
+                });
+            }
+
+            function setDeparturePoint(latlng) {
+                // Remove existing departure marker
+                if (departureMarker) {
+                    map.removeLayer(departureMarker);
+                }
+
+                // Add new departure marker
+                departureMarker = L.marker([latlng.lat, latlng.lng], {
+                    icon: departureIcon,
+                    title: 'Departure Point'
+                }).addTo(map);
+
+                // Update hidden inputs
+                $('#departureLatInput').val(latlng.lat);
+                $('#departureLngInput').val(latlng.lng);
+
+                // Reverse geocoding using Nominatim (OpenStreetMap's geocoding service)
+                reverseGeocode(latlng.lat, latlng.lng, function(address) {
+                    $('#departurePointInput').val(address);
+                });
+
+                currentMode = null;
+                updateButtonStates();
+            }
+
+            function setDestinationPoint(latlng) {
+                // Remove existing destination marker
+                if (destinationMarker) {
+                    map.removeLayer(destinationMarker);
+                }
+
+                // Add new destination marker
+                destinationMarker = L.marker([latlng.lat, latlng.lng], {
+                    icon: destinationIcon,
+                    title: 'Destination'
+                }).addTo(map);
+
+                // Update hidden inputs
+                $('#destinationLatInput').val(latlng.lat);
+                $('#destinationLngInput').val(latlng.lng);
+
+                // Reverse geocoding
+                reverseGeocode(latlng.lat, latlng.lng, function(address) {
+                    $('#destinationCityInput').val(address);
+                });
+
+                currentMode = null;
+                updateButtonStates();
+            }
+
+            function reverseGeocode(lat, lng, callback) {
+                const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.display_name) {
+                            callback(data.display_name);
+                        } else {
+                            callback(`${lat.toFixed(6)}, ${lng.toFixed(6)}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Geocoding error:', error);
+                        callback(`${lat.toFixed(6)}, ${lng.toFixed(6)}`);
+                    });
+            }
+
+            function updateButtonStates() {
+                $('#setDepartureBtn').toggleClass('active', currentMode === 'departure');
+                $('#setDestinationBtn').toggleClass('active', currentMode === 'destination');
+
+                // Update map cursor
+                if (currentMode) {
+                    $('#map').css('cursor', 'crosshair');
+                } else {
+                    $('#map').css('cursor', 'grab');
+                }
+            }
+
+            function clearAllMarkers() {
+                if (departureMarker) {
+                    map.removeLayer(departureMarker);
+                    departureMarker = null;
+                }
+                if (destinationMarker) {
+                    map.removeLayer(destinationMarker);
+                    destinationMarker = null;
+                }
+
+                // Clear form inputs
+                $('#departurePointInput').val('');
+                $('#destinationCityInput').val('');
+                $('#departureLatInput').val('');
+                $('#departureLngInput').val('');
+                $('#destinationLatInput').val('');
+                $('#destinationLngInput').val('');
+
+                currentMode = null;
+                updateButtonStates();
+            }
+
+            // Button event handlers
+            $('#setDepartureBtn').click(function() {
+                currentMode = currentMode === 'departure' ? null : 'departure';
+                updateButtonStates();
+            });
+
+            $('#setDestinationBtn').click(function() {
+                currentMode = currentMode === 'destination' ? null : 'destination';
+                updateButtonStates();
+            });
+
+            $('#clearMarkersBtn').click(function() {
+                clearAllMarkers();
+            });
+
+            // Initialize map
+            initMap();
+
+            // Initialize amenities arrays - Load existing data from model
+            let amenities = @Html.Raw(Json.Serialize(Model.Amenities ?? new List<string>()));
+            let included = @Html.Raw(Json.Serialize(Model.Included ?? new List<string>()));
+            let notIncluded = @Html.Raw(Json.Serialize(Model.NotIncluded ?? new List<string>()));
+
+            // Initial render of existing tags
+            updateAmenitiesTags();
+            updateIncludedTags();
+            updateNotIncludedTags();
+
+            function updateAmenitiesTags() {
+                const tagsContainer = $('#amenitiesTags');
+                tagsContainer.empty();
+
+                amenities.forEach(function(amenity, index) {
+                    const tag = $(`
+                        <span class="badge bg-primary me-1 mb-1">
+                            ${amenity}
+                            <button type="button" class="btn-close btn-close-white ms-1" data-index="${index}" data-type="amenities"></button>
+                        </span>
+                    `);
+                    tagsContainer.append(tag);
+                });
+
+                // Add hidden inputs for amenities
+                $('input[name^="Amenities"]').remove();
+                amenities.forEach(function(amenity, index) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: `Amenities[${index}]`,
+                        value: amenity
+                    }).appendTo('#editTravelForm');
+                });
+            }
+
+            function updateIncludedTags() {
+                const tagsContainer = $('#includedTags');
+                tagsContainer.empty();
+
+                included.forEach(function(item, index) {
+                    const tag = $(`
+                        <span class="badge bg-success me-1 mb-1">
+                            ${item}
+                            <button type="button" class="btn-close btn-close-white ms-1" data-index="${index}" data-type="included"></button>
+                        </span>
+                    `);
+                    tagsContainer.append(tag);
+                });
+
+                // Add hidden inputs for included items
+                $('input[name^="Included"]').remove();
+                included.forEach(function(item, index) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: `Included[${index}]`,
+                        value: item
+                    }).appendTo('#editTravelForm');
+                });
+            }
+
+            function updateNotIncludedTags() {
+                const tagsContainer = $('#notIncludedTags');
+                tagsContainer.empty();
+
+                notIncluded.forEach(function(item, index) {
+                    const tag = $(`
+                        <span class="badge bg-danger me-1 mb-1">
+                            ${item}
+                            <button type="button" class="btn-close btn-close-white ms-1" data-index="${index}" data-type="notIncluded"></button>
+                        </span>
+                    `);
+                    tagsContainer.append(tag);
+                });
+
+                // Add hidden inputs for not included items
+                $('input[name^="NotIncluded"]').remove();
+                notIncluded.forEach(function(item, index) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: `NotIncluded[${index}]`,
+                        value: item
+                    }).appendTo('#editTravelForm');
+                });
+            }
+
+            // Amenities input handler
+            $('#amenitiesInput').on('keypress', function(e) {
+                if (e.which === 13 || e.which === 188) { // Enter or comma
+                    e.preventDefault();
+                    const value = $(this).val().trim().replace(',', '');
+                    if (value && amenities.indexOf(value) === -1) {
+                        amenities.push(value);
+                        updateAmenitiesTags();
+                        $(this).val('');
+                    }
+                }
+            });
+
+            // Included input handler
+            $('#includedInput').on('keypress', function(e) {
+                if (e.which === 13 || e.which === 188) { // Enter or comma
+                    e.preventDefault();
+                    const value = $(this).val().trim().replace(',', '');
+                    if (value && included.indexOf(value) === -1) {
+                        included.push(value);
+                        updateIncludedTags();
+                        $(this).val('');
+                    }
+                }
+            });
+
+            // Not Included input handler
+            $('#notIncludedInput').on('keypress', function(e) {
+                if (e.which === 13 || e.which === 188) { // Enter or comma
+                    e.preventDefault();
+                    const value = $(this).val().trim().replace(',', '');
+                    if (value && notIncluded.indexOf(value) === -1) {
+                        notIncluded.push(value);
+                        updateNotIncludedTags();
+                        $(this).val('');
+                    }
+                }
+            });
+
+            // Universal close button handler
+            $(document).on('click', '.btn-close', function() {
+                const index = $(this).data('index');
+                const type = $(this).data('type');
+
+                if (type === 'amenities') {
+                    amenities.splice(index, 1);
+                    updateAmenitiesTags();
+                } else if (type === 'included') {
+                    included.splice(index, 1);
+                    updateIncludedTags();
+                } else if (type === 'notIncluded') {
+                    notIncluded.splice(index, 1);
+                    updateNotIncludedTags();
+                }
+            });
+
+            // Image Management Functions
+            function removeCoverImage() {
+                $('#currentCoverImageUrl').val('');
+                $('.current-image-container').has('img[alt="Current Cover"]').remove();
+            }
+
+            function removeProfileImage() {
+                $('#currentProfileImageUrl').val('');
+                $('.current-image-container').has('img[alt="Current Profile"]').remove();
+            }
+
+            function removeGalleryImage(index) {
+                $(`.current-image[data-image-id="${index}"]`).remove();
+                // Update the hidden input to mark for deletion
+                $(`input[name="Images[${index}].ImageUrl"]`).val('');
+            }
+
+            // Make functions globally available
+            window.removeCoverImage = removeCoverImage;
+            window.removeProfileImage = removeProfileImage;
+            window.removeGalleryImage = removeGalleryImage;
+
+            // Cover Image Preview
+            function previewImage(input, previewContainer, maxWidth = 300, maxHeight = 200) {
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewContainer.html(`
+                            <div class="position-relative d-inline-block">
+                                <img src="${e.target.result}" class="img-thumbnail"
+                                     style="max-width: ${maxWidth}px; max-height: ${maxHeight}px; object-fit: cover;">
+                                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 rounded-circle"
+                                        style="transform: translate(50%, -50%);" onclick="$(this).parent().remove(); $('#${input.id}').val('');">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        `);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $('#coverImageInput').change(function() {
+                previewImage(this, $('#coverImagePreview'), 400, 250);
+            });
+
+            $('#profileImageInput').change(function() {
+                previewImage(this, $('#profileImagePreview'), 200, 200);
+            });
+
+            // Gallery Images preview
+            $('#imageFiles').change(function() {
+                const files = this.files;
+                const previewContainer = $('#imagePreview');
+                previewContainer.empty();
+
+                Array.from(files).forEach(function(file, index) {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const imageDiv = $(`
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="card">
+                                        <img src="${e.target.result}" class="card-img-top" style="height: 150px; object-fit: cover;">
+                                        <div class="card-body p-2">
+                                            <small class="text-muted">${file.name}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
+                            previewContainer.append(imageDiv);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+
+            // Form validation
+            $('#editTravelForm').submit(function(e) {
+                let isValid = true;
+
+                // Check if locations are set
+                if (!$('#departureLatInput').val() || !$('#departureLngInput').val()) {
+                    alert('Please set the departure point on the map.');
+                    isValid = false;
+                }
+
+                if (!$('#destinationLatInput').val() || !$('#destinationLngInput').val()) {
+                    alert('Please set the destination on the map.');
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+        });
+                $(document).ready(function() {
+            // Array to track images marked for deletion
+            let imagesToRemove = [];
+
+            // Updated removeGalleryImage function
+            function removeGalleryImage(index) {
+                // Get the image ID from the hidden input
+                const imageId = $(`input[name="Images[${index}].Id"]`).val();
+
+                if (imageId && imageId !== '') {
+                    // Add to deletion list if it has an ID (existing image)
+                    imagesToRemove.push(parseInt(imageId));
+                    console.log('Added to deletion list:', imageId);
+                }
+
+                // Remove the visual element
+                $(`.current-image[data-image-id="${index}"]`).remove();
+
+                // Update the hidden input for images to remove
+                updateImagesToRemoveInput();
+            }
+
+            // Function to update the hidden input with images to remove
+            function updateImagesToRemoveInput() {
+                // Remove existing hidden inputs for images to remove
+                $('input[name^="ImagesToRemove"]').remove();
+
+                // Add new hidden inputs for each image to remove
+                imagesToRemove.forEach(function(imageId, index) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: `ImagesToRemove[${index}]`,
+                        value: imageId
+                    }).appendTo('#editTravelForm');
+                });
+
+                console.log('Images to remove:', imagesToRemove);
+            }
+
+            // Make function globally available
+            window.removeGalleryImage = removeGalleryImage;
+
+            // Rest of your existing code...
+        });
+    </script>
+}
+
+@section ValidationScriptSection {
+    <partial name="_ValidationScriptsPartial" />
+}
