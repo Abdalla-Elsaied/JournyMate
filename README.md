@@ -329,11 +329,6 @@ The team followed an **Agile** approach, working through iterations, feedback, t
 
 ---
 
-## 📄 License
-
-> **License to be confirmed.** Add a `LICENSE` file and update this section with the chosen license.
-
----
 
 ## 🙏 Acknowledgments
 
