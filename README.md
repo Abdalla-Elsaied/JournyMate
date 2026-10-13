@@ -313,7 +313,7 @@ JourneyMate was developed collaboratively by students from the **Faculty of Engi
 | Abdallah Abdrabo | Backend Development |
 | Abdallah Agag | Backend Development |
 | Ahmed Tarek | AI Features |
-| Abdallah Ibrahim / Abdallah Elghonamy | Team contribution as assigned during development |
+| Abdallah Ibrahim  | AI Features |
 | Ahmed Mahgoob | Web Frontend and Video Editing |
 | Ola Belal | Web Frontend |
 | Nada Omar | Mobile Application |
