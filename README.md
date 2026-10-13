@@ -96,31 +96,10 @@ By bringing travel companies and travelers together on one platform, in both Ara
 
 ---
 
-## 📸 Screenshots and Demo
-
-> Replace each placeholder below with a real image path from your repository (e.g., `docs/screenshots/home.png`).
-
-### 🌐 Website (React)
-
-| Home | Trip Details | Booking |
-|:---:|:---:|:---:|
-| *Screenshot placeholder* | *Screenshot placeholder* | *Screenshot placeholder* |
-
-### 📱 Mobile App (Flutter)
-
-| Home | Chatbot | Trip Details |
-|:---:|:---:|:---:|
-| *Screenshot placeholder* | *Screenshot placeholder* | *Screenshot placeholder* |
-
-### 🖥️ Dashboards (ASP.NET Core MVC)
-
-| Admin Dashboard | Travel Company Dashboard |
-|:---:|:---:|
-| *Screenshot placeholder* | *Screenshot placeholder* |
 
 ### 🎬 Marketing Video
 
-> *Video link placeholder. Add the link here if a marketing video is available.*
+> *[Video link placeholder. Add the link here if a marketing video is available](https://lnkd.in/p/eHknBssX).*
 
 ---
 
