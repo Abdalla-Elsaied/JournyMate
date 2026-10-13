@@ -1,5 +1,4 @@
-🌍 Journey Mate
-J::: {align="center"}
+
 # 🌍 JourneyMate
 
 ### Explore Egypt. Discover Experiences. Travel Smarter.
