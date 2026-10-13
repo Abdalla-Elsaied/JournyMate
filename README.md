@@ -99,7 +99,7 @@ By bringing travel companies and travelers together on one platform, in both Ara
 
 ### 🎬 Marketing Video
 
-> *[Video link placeholder. Add the link here if a marketing video is available](https://lnkd.in/p/eHknBssX).*
+> *[Marketing Video](https://lnkd.in/p/eHknBssX).*
 
 ---
 
