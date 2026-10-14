@@ -18,7 +18,7 @@ An AI-powered tourism platform that connects travelers with travel companies to 
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)
 
-[🌐 Live Demo]([https://journeymate1.vercel.app/]) · [📘 API Documentation (Swagger)](https://lnkd.in/d4ua3xBN)
+[🌐 Live Demo](https://journeymate1.vercel.app/) · [📘 API Documentation (Swagger)](https://lnkd.in/d4ua3xBN)
 
 </div>
 
